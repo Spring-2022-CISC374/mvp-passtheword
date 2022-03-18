@@ -1,13 +1,14 @@
 import Phaser from 'phaser'
 
 import BootScene from './scenes/BootScene'
+import GuessScene from './scenes/GuessScene'
 import PlayScene from './scenes/PlayScene'
 
 export const config = {
     width:256,
     height: 272,
     backgroundColor: 0x353956,
-    scene: [BootScene, PlayScene],
+    scene: [BootScene, PlayScene, GuessScene],
     pixleArt: true,
     physics: {
         default: "arcade",
