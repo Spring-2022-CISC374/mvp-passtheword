@@ -6,14 +6,10 @@ export default class BootScene extends Phaser.Scene {
     }
 
     preload(){
-        // eslint-disable-next-line no-undef
-        this.load.image("background", require('../../public/images/background.png'));
-        // eslint-disable-next-line no-undef
-        this.load.spritesheet("explosion", require('../../public/spritesheets/explosion.png'), {frameWidth: 16, frameHeight: 16});
-        // eslint-disable-next-line no-undef
-        this.load.spritesheet("orb", require("../../public/spritesheets/power-up.png"), {frameWidth: 16, frameHeight: 16});
-        // eslint-disable-next-line no-undef
-        this.load.spritesheet("player", require('../../public/images/paddle1.png'), {frameWidth: 64, frameHeight: 8});
+        this.load.image("background", '../images/background.png');
+        this.load.spritesheet("explosion", '../spritesheets/explosion.png', {frameWidth: 16, frameHeight: 16});
+        this.load.spritesheet("orb", "../spritesheets/power-up.png", {frameWidth: 16, frameHeight: 16});
+        this.load.image("player", '../images/paddle1.png');
     }
     
     create() {
