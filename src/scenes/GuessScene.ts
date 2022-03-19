@@ -30,12 +30,18 @@ export default class GuessScene extends Phaser.Scene {
     }
 
     appendGuess(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text){
-        this.currentGuess.push(gameObject.text)
+        if(this.currentGuess.includes(gameObject.text)){
+            this.currentGuess.splice(this.currentGuess.indexOf(gameObject.text),1)
+        }
+        else{
+            this.currentGuess.push(gameObject.text)
+        }
         this.updateGuessText()
     }
     updateGuessText(){
-        this.guessText = this.add.text(20,20,"Guess: " + this.currentGuess.toString())
+        this.guessText.setText("Guess: " + this.currentGuess.toString())
         this.guessText.setPosition(0,150)
+        console.log(this.currentGuess)
     }
 
     create(){
@@ -43,7 +49,7 @@ export default class GuessScene extends Phaser.Scene {
         this.otherPlayer = new player(2)
         this.activePlayer.setPassword(["abc","123"])
 
-        this.updateGuessText()
+        this.guessText = this.add.text(0,150,"Guess: " + this.currentGuess.toString())
 
         this.keywords['abc'] = this.add.text(20,20,"abc");
         this.keywords['123'] = this.add.text(20,20,"123").setPosition(70,70);
