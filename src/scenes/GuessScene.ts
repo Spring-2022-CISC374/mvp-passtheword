@@ -44,6 +44,11 @@ export default class GuessScene extends Phaser.Scene {
         }
         Player.switchTurn()
         this.turnText.setText("Player " + Player.activePlayer.id + "'s Turn")
+        this.currentGuess = []
+        this.guessText.setText("Guess: " + this.currentGuess.toString().replace(/,/g,''))
+        for (let text of Object.values(this.keywords)) {
+            text.setColor("White")
+        }
     }
 
     create() {
