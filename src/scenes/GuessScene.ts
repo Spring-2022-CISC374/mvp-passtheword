@@ -5,6 +5,7 @@ export default class GuessScene extends Phaser.Scene {
 
     currentGuess: string[] = []
     guessText: Phaser.GameObjects.Text
+    turnText: Phaser.GameObjects.Text
     keywords: { [text: string]: Phaser.GameObjects.Text } = {}
 
     constructor() {
@@ -41,6 +42,8 @@ export default class GuessScene extends Phaser.Scene {
         else {
             this.guessText.setColor("Red")
         }
+        Player.switchTurn()
+        this.turnText.setText("Player " + Player.activePlayer.id + "'s Turn")
     }
 
     create() {
@@ -53,6 +56,7 @@ export default class GuessScene extends Phaser.Scene {
 
         this.guessText = this.add.text(0, 150, "Guess: " + this.currentGuess.toString())
         this.add.text(0, 200, "submit").setInteractive()
+        this.turnText = this.add.text(150, 0, "Player " + Player.activePlayer.id + "'s Turn").setFontSize(12)
 
         this.keywords['abc'] = this.add.text(20, 20, "abc");
         this.keywords['123'] = this.add.text(20, 20, "123").setPosition(70, 70);
