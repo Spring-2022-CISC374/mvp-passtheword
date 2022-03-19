@@ -24,11 +24,13 @@ export default class GuessScene extends Phaser.Scene {
     appendGuess(keyword: Phaser.GameObjects.Text) {
         if (this.currentGuess.includes(keyword.text)) {
             this.currentGuess.splice(this.currentGuess.indexOf(keyword.text), 1)
+            keyword.setColor("White")
         }
         else {
             this.currentGuess.push(keyword.text)
+            keyword.setColor("Gray")
         }
-        this.guessText.setText("Guess: " + this.currentGuess.toString())
+        this.guessText.setText("Guess: " + this.currentGuess.toString().replace(',',''))
         this.guessText.setColor("White")
     }
 
