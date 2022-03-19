@@ -30,7 +30,7 @@ export default class GuessScene extends Phaser.Scene {
             this.currentGuess.push(keyword.text)
             keyword.setColor("Gray")
         }
-        this.guessText.setText("Guess: " + this.currentGuess.toString().replace(',',''))
+        this.guessText.setText("Guess: " + this.currentGuess.toString().replace(/,/g,''))
         this.guessText.setColor("White")
     }
 
@@ -56,6 +56,7 @@ export default class GuessScene extends Phaser.Scene {
 
         this.keywords['abc'] = this.add.text(20, 20, "abc");
         this.keywords['123'] = this.add.text(20, 20, "123").setPosition(70, 70);
+        this.keywords['Test'] = this.add.text(20, 20, "Test").setPosition(0, 80);
         for (let text of Object.values(this.keywords)) {
             text.setInteractive()
         }
