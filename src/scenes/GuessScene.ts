@@ -3,8 +3,6 @@ import { Player } from '../Player'
 
 export default class GuessScene extends Phaser.Scene {
 
-    activePlayer: Player
-    otherPlayer: Player
     currentGuess: string[] = []
     guessText: Phaser.GameObjects.Text
     keywords: { [text: string]: Phaser.GameObjects.Text } = {}
@@ -35,7 +33,7 @@ export default class GuessScene extends Phaser.Scene {
     }
 
     submit() {
-        if (this.otherPlayer.guessPassword(this.currentGuess)) {
+        if (Player.otherPlayer.guessPassword(this.currentGuess)) {
             this.guessText.setColor("Green")
         }
         else {
@@ -48,8 +46,8 @@ export default class GuessScene extends Phaser.Scene {
         var player2 = new Player(2)
         player1.setPassword(['123'])
         player2.setPassword(['abc', '123'])
-        this.activePlayer = player1
-        this.otherPlayer = player2
+        Player.activePlayer = player1
+        Player.otherPlayer = player2
 
         this.guessText = this.add.text(0, 150, "Guess: " + this.currentGuess.toString())
         this.add.text(0, 200, "submit").setInteractive()
