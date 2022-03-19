@@ -1,61 +1,70 @@
 import Phaser from 'phaser'
-
-class player{
-    constructor(id: number){
-        this.id = id
-        this.password = []
-    }
-    id: number
-    password: string[]
-    charges = 0
-
-    setPassword(input: string[]){
-        this.password = input
-    }
-    guessPassword(input: string[]){
-        return (this.password == input)
-    }
-}
+import { Player } from '../Player'
 
 export default class GuessScene extends Phaser.Scene {
 
-    activePlayer: player
-    otherPlayer: player
+    activePlayer: Player
+    otherPlayer: Player
     currentGuess: string[] = []
     guessText: Phaser.GameObjects.Text
-    keywords: {[text: string]: Phaser.GameObjects.Text} = {}
+    keywords: { [text: string]: Phaser.GameObjects.Text } = {}
 
-    constructor(){
+    constructor() {
         super("guess");
     }
 
-    appendGuess(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text){
-        this.currentGuess.push(gameObject.text)
-        this.updateGuessText()
+    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
+        if (gameObject.type != "Text") { return }
+        if (Object.keys(this.keywords).includes(gameObject.text)) {
+            this.appendGuess(gameObject)
+        }
+        if (gameObject.text == "submit") {
+            this.submit()
+        }
     }
-    updateGuessText(){
-        this.guessText = this.add.text(20,20,"Guess: " + this.currentGuess.toString())
-        this.guessText.setPosition(0,150)
+
+    appendGuess(keyword: Phaser.GameObjects.Text) {
+        if (this.currentGuess.includes(keyword.text)) {
+            this.currentGuess.splice(this.currentGuess.indexOf(keyword.text), 1)
+        }
+        else {
+            this.currentGuess.push(keyword.text)
+        }
+        this.guessText.setText("Guess: " + this.currentGuess.toString())
+        this.guessText.setColor("White")
     }
 
-    create(){
-        this.activePlayer = new player(1)
-        this.otherPlayer = new player(2)
-        this.activePlayer.setPassword(["abc","123"])
+    submit() {
+        if (this.otherPlayer.guessPassword(this.currentGuess)) {
+            this.guessText.setColor("Green")
+        }
+        else {
+            this.guessText.setColor("Red")
+        }
+    }
 
-        this.updateGuessText()
+    create() {
+        var player1 = new Player(1)
+        var player2 = new Player(2)
+        player1.setPassword(['123'])
+        player2.setPassword(['abc', '123'])
+        this.activePlayer = player1
+        this.otherPlayer = player2
 
-        this.keywords['abc'] = this.add.text(20,20,"abc");
-        this.keywords['123'] = this.add.text(20,20,"123").setPosition(70,70);
-        for (let text of Object.values(this.keywords)){
+        this.guessText = this.add.text(0, 150, "Guess: " + this.currentGuess.toString())
+        this.add.text(0, 200, "submit").setInteractive()
+
+        this.keywords['abc'] = this.add.text(20, 20, "abc");
+        this.keywords['123'] = this.add.text(20, 20, "123").setPosition(70, 70);
+        for (let text of Object.values(this.keywords)) {
             text.setInteractive()
         }
 
-        this.input.on('gameobjectdown',this.appendGuess, this)
+        this.input.on('gameobjectdown', this.handleInteract, this)
 
     }
 
-    update(){
+    update() {
 
     }
 
