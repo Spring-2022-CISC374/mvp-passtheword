@@ -7,8 +7,8 @@ import CreatePassScene from './scenes/CreatePassScene'
 import EndScene from './scenes/EndScene'
 
 export const config = {
-    width:256*5,
-    height: 272*5,
+    width: 256*2,
+    height: 272,
     backgroundColor: 0x353956,
     scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, EndScene],
     pixleArt: true,

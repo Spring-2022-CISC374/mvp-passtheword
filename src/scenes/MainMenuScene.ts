@@ -9,8 +9,8 @@ export default class MainMenuScene extends Phaser.Scene { // Created by Kyle Kon
         super("MainMenu");
     }
     create(){
-        this.gameTitleText['Pass The Word'] = this.add.text(40,40,"Pass The Word").setPosition(70,70);
-        this.nextInstructionText['Left Click to Begin'] = this.add.text(40,40,"Left Click to Begin").setPosition(40,180);
+        this.gameTitleText['Pass The Word'] = this.add.text(176,70, "Pass The Word");
+        this.nextInstructionText['Left Click to Begin'] = this.add.text(146,180,"Left Click to Begin");
 
         this.input.on('pointerup', function (pointer) {
 

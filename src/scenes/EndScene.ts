@@ -11,8 +11,8 @@ export default class EndScene extends Phaser.Scene { //File created by Braxton
     }
 
     create() {
-        this.gameTitleText['GAME OVER'] = this.add.text(40,40,"GAME OVER").setPosition(70,70);
-        this.nextInstructionText['Left Click to Restart'] = this.add.text(40,40,"Left Click to Restart").setPosition(40,180);
+        this.gameTitleText['GAME OVER'] = this.add.text(186,70,"GAME OVER");
+        this.nextInstructionText['Left Click to Restart'] = this.add.text(136, 180,"Left Click to Restart");
 
         this.input.on('pointerup', function (pointer) {
 
