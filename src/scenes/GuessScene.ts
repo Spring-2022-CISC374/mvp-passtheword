@@ -68,16 +68,15 @@ export default class GuessScene extends Phaser.Scene {
         Player.otherPlayer = player2
 
         // WARNING: if the text in the submit button is changed, handleInteract must also be changed
-        this.guessText = this.add.text(0, 150, "Guess: " + this.currentGuess.toString())
-        this.add.text(0, 200, "submit").setInteractive()
-        this.turnText = this.add.text(150, 0, "Player " + Player.activePlayer.id + "'s Turn").setFontSize(12)
+        this.guessText = this.add.text(10, 180, "Guess: " + this.currentGuess.toString())
+        this.add.text(10, 230, "submit").setInteractive()
+        this.turnText = this.add.text(150, 10, "Player " + Player.activePlayer.id + "'s Turn").setFontSize(12)
 
-        // TODO:rewrite this keyword creation to involve less hard coded values
-        //      and have automatic formating 
-        //      (and maybe change the text objects to containers)
-        // WARNING: currently, the strings used for the key must match the text exactly
+        // Keyword Formation
 
         this.keywords = this.formKeywords();
+
+        // TODO: Make an input screen for chractersheet info.
 
         this.input.on('gameobjectdown', this.handleInteract, this)
 
@@ -90,10 +89,18 @@ export default class GuessScene extends Phaser.Scene {
     formKeywords(){
         var sampleSheet = new CharacterSheet("Tom", "Hardy", "4/25", ["Gloomtail", "sprinkles", "gum"], [])
         var words = sampleSheet.getWords();
-        var keywords =  [];
+        var keywords = [];
+        var widthIncrement = 10;
+        var heightIncrement = 30;
+        
         for (let i = 0; i<words.length; i++) {
-            let newKeyword = this.add.text(10, 20*i, words[i]).setInteractive();
+            if(heightIncrement%150 == 0){
+                widthIncrement = widthIncrement + 100;
+                heightIncrement += 30;
+            }
+            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
             keywords.push(newKeyword);
+            heightIncrement += 20;
         }
         return keywords;
     }
