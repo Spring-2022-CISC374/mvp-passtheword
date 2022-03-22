@@ -4,12 +4,13 @@ import BootScene from './scenes/BootScene'
 import GuessScene from './scenes/GuessScene'
 import MainMenuScene from './scenes/MainMenuScene'
 import CreatePassScene from './scenes/CreatePassScene'
+import EndScene from './scenes/EndScene'
 
 export const config = {
     width:256*5,
     height: 272*5,
     backgroundColor: 0x353956,
-    scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene],
+    scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, EndScene],
     pixleArt: true,
     physics: {
         default: "arcade",

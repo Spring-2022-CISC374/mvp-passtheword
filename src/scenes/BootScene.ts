@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-export default class BootScene extends Phaser.Scene {
+export default class BootScene extends Phaser.Scene { //Most scenes were made by Kyle Kontura
     constructor(){
         super("bootGame");
     }

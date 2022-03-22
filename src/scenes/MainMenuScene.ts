@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-export default class MainMenuScene extends Phaser.Scene {
+export default class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
 
     gameTitleText: string[] = []
     nextInstructionText: string[] = []
@@ -14,7 +14,7 @@ export default class MainMenuScene extends Phaser.Scene {
 
         this.input.on('pointerup', function (pointer) {
 
-            this.scene.start('createPassword');
+            this.scene.start('guess');
 
         }, this);
           // Left Click advances to next scene
