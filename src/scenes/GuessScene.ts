@@ -72,11 +72,12 @@ export default class GuessScene extends Phaser.Scene {
         this.add.text(10, 230, "submit").setInteractive()
         this.turnText = this.add.text(150, 10, "Player " + Player.activePlayer.id + "'s Turn").setFontSize(12)
 
-        // Keyword Formation
+        // Keyword Formation created by Braxton (thank you Eddie)
 
+        //sets the keywords for the scene
         this.keywords = this.formKeywords();
 
-        // TODO: Make an input screen for chractersheet info.
+        // TODO: Make an input screen for chractersheet info. Created by Braxton
 
         this.input.on('gameobjectdown', this.handleInteract, this)
 
@@ -86,6 +87,7 @@ export default class GuessScene extends Phaser.Scene {
 
     }
 
+    // this turns all the keyword strings from the charactersheet into Phaser.GameObjects.Text objects and returns them in an array
     formKeywords(){
         var sampleSheet = new CharacterSheet("Tom", "Hardy", "4/25", ["Gloomtail", "sprinkles", "gum"], [])
         var words = sampleSheet.getWords();
