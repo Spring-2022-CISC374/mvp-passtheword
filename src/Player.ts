@@ -1,4 +1,4 @@
-export class Player {
+class Player {
     constructor(id: number) {
         this.id = id
     }
@@ -9,6 +9,7 @@ export class Player {
     setPassword(input: string[]) {
         this.password = input
     }
+
     guessPassword(input: string[]): boolean {
         if (this.password.length != input.length) { return false }
         for (var i = 0; i < input.length; i++) {
@@ -16,14 +17,28 @@ export class Player {
         }
         return true
     }
+}
 
-    static activePlayer: Player
-    static otherPlayer: Player
+export class Players {
+    constructor(id: number, id2: number) {
+        this.activePlayer = new Player(id)
+        this.otherPlayer = new Player(id2)
+    }
+    activePlayer = new Player(1)
+    otherPlayer = new Player(2)
 
-    static switchTurn(): Number{
-        let tempPlayer = Player.otherPlayer
-        Player.otherPlayer = Player.activePlayer
-        Player.activePlayer = tempPlayer
-        return Player.activePlayer.id
+    setPassword(input: string[]) {
+        this.activePlayer.setPassword(input)
+    }
+
+    guessPassword(input: string[]): boolean {
+        return this.activePlayer.guessPassword(input)
+    }
+
+    switchTurn(): Number{
+        let tempPlayer = this.otherPlayer
+        this.otherPlayer = this.activePlayer
+        this.activePlayer = tempPlayer
+        return this.activePlayer.id
     }
 }
