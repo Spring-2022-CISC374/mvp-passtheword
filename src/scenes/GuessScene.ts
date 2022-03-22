@@ -1,4 +1,6 @@
 import Phaser from 'phaser'
+import { CharacterSheet } from '../characterSheet'
+//import { Keyword } from '../keyword'
 import { Player } from '../Player'
 
 export default class GuessScene extends Phaser.Scene {
@@ -6,7 +8,7 @@ export default class GuessScene extends Phaser.Scene {
     currentGuess: string[] = []
     guessText: Phaser.GameObjects.Text
     turnText: Phaser.GameObjects.Text
-    keywords: { [text: string]: Phaser.GameObjects.Text } = {}
+    keywords: Phaser.GameObjects.Text[]
 
     constructor() {
         super("guess");
@@ -15,7 +17,7 @@ export default class GuessScene extends Phaser.Scene {
     // calls diferent functions depending on what kind of object is clicked 
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
         if (gameObject.type != "Text") { return }
-        if (Object.keys(this.keywords).includes(gameObject.text)) {
+        if (this.keywords.includes(gameObject)) {
             this.appendGuess(gameObject)
         }
         if (gameObject.text == "submit") {
@@ -51,15 +53,13 @@ export default class GuessScene extends Phaser.Scene {
         this.turnText.setText("Player " + Player.activePlayer.id + "'s Turn")
         this.currentGuess = []
         this.guessText.setText("Guess: " + this.currentGuess.toString().replace(/,/g,''))
-        for (let text of Object.values(this.keywords)) {
-            text.setColor("White")
-        }
     }
 
     create() {
 
         // TODO: create and assign these players in the password creation phase
         //       Look at Player.ts to see how to use it
+        // WARNING: The setPassword will have to be changed to be dynamic
         var player1 = new Player(1)
         var player2 = new Player(2)
         player1.setPassword(['123'])
@@ -67,21 +67,16 @@ export default class GuessScene extends Phaser.Scene {
         Player.activePlayer = player1
         Player.otherPlayer = player2
 
-        // WARNING: if the text in the submit button is chnaged, handleInteract must also be changed
-        this.guessText = this.add.text(0, 150, "Guess: " + this.currentGuess.toString())
-        this.add.text(0, 200, "submit").setInteractive()
-        this.turnText = this.add.text(150, 0, "Player " + Player.activePlayer.id + "'s Turn").setFontSize(12)
+        // WARNING: if the text in the submit button is changed, handleInteract must also be changed
+        this.guessText = this.add.text(10, 180, "Guess: " + this.currentGuess.toString())
+        this.add.text(10, 230, "submit").setInteractive()
+        this.turnText = this.add.text(150, 10, "Player " + Player.activePlayer.id + "'s Turn").setFontSize(12)
 
-        // TODO:rewrite this keyword creation to involve less hard coded values
-        //      and have automatic formating 
-        //      (and maybe change the text objects to containers)
-        // WARNING: currently, the strings used for the key must match the text exactly
-        this.keywords['abc'] = this.add.text(20, 20, "abc");
-        this.keywords['123'] = this.add.text(20, 20, "123").setPosition(70, 70);
-        this.keywords['Test'] = this.add.text(20, 20, "Test").setPosition(0, 80);
-        for (let text of Object.values(this.keywords)) {
-            text.setInteractive()
-        }
+        // Keyword Formation
+
+        this.keywords = this.formKeywords();
+
+        // TODO: Make an input screen for chractersheet info.
 
         this.input.on('gameobjectdown', this.handleInteract, this)
 
@@ -91,5 +86,23 @@ export default class GuessScene extends Phaser.Scene {
 
     }
 
+    formKeywords(){
+        var sampleSheet = new CharacterSheet("Tom", "Hardy", "4/25", ["Gloomtail", "sprinkles", "gum"], [])
+        var words = sampleSheet.getWords();
+        var keywords = [];
+        var widthIncrement = 10;
+        var heightIncrement = 30;
+        
+        for (let i = 0; i<words.length; i++) {
+            if(heightIncrement%150 == 0){
+                widthIncrement = widthIncrement + 100;
+                heightIncrement += 30;
+            }
+            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
+            keywords.push(newKeyword);
+            heightIncrement += 20;
+        }
+        return keywords;
+    }
 
 }
