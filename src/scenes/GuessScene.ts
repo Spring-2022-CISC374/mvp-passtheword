@@ -17,6 +17,7 @@ export default class GuessScene extends Phaser.Scene {
     }
 
     // calls diferent functions depending on what kind of object is clicked 
+    // Created by Eddie Levin
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
         if (gameObject.type != "Text") { return }
         if (this.keywords.includes(gameObject)) {
@@ -29,6 +30,7 @@ export default class GuessScene extends Phaser.Scene {
 
     // when a keyword is clicked, that keyword is appended to the list of current guesses
     //  if the keyword is part of the guess, it is removed from the list
+    // Created by Eddie Levin
     appendGuess(keyword: Phaser.GameObjects.Text) {
         if (this.currentPassword.includes(keyword.text)) {
             this.currentPassword.splice(this.currentPassword.indexOf(keyword.text), 1)
@@ -46,6 +48,7 @@ export default class GuessScene extends Phaser.Scene {
         this.userText.setColor("White")
     }
 
+    // Created by Jason He
     createPassword() {
         this.players.setPassword(this.currentPassword)
         this.currentPassword = []
@@ -64,6 +67,7 @@ export default class GuessScene extends Phaser.Scene {
 
     // when submit is clicked, the guess is compared to the opponent's password, and the text color is changed accordingly,
     //  and then the turn is switched to the opponent and the current guess is cleared
+    // Created Eddie Levin
     submit() {
         if (this.mode == "Create") {
             this.createPassword()
@@ -71,6 +75,7 @@ export default class GuessScene extends Phaser.Scene {
 
             if (this.players.otherPlayer.guessPassword(this.currentPassword)) {
                 this.userText.setColor("Green")
+                this.scene.start("endGame");
             }
             else {
                 this.userText.setColor("Red")
@@ -81,14 +86,12 @@ export default class GuessScene extends Phaser.Scene {
             this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''))
 
         }
-        
+        for(var kw of this.keywords){kw.setColor("White")}
     }
 
     create() {
 
-        // TODO: create and assign these players in the password creation phase
-        //       Look at Player.ts to see how to use it
-        // WARNING: The setPassword will have to be changed to be dynamic
+        // Created by Jason He
         this.mode = "Create"
         this.players = new Players(1, 2)
 
@@ -97,11 +100,11 @@ export default class GuessScene extends Phaser.Scene {
         this.turnText = this.add.text(150, 10, "Player " + this.players.activePlayer.id + "'s Turn").setFontSize(12)
         this.add.text(10, 230, "submit").setInteractive()
 
-        // Keyword Formation
-
+        // Keyword Formation created by Braxton Madara
         this.keywords = this.formKeywords();
 
         // TODO: Make an input screen for chractersheet info.
+
 
         this.input.on('gameobjectdown', this.handleInteract, this)
 
@@ -111,6 +114,8 @@ export default class GuessScene extends Phaser.Scene {
 
     }
 
+    // Converts the charactersheet data into keywords
+    // Created by Braxton Madara
     formKeywords(){
         var sampleSheet = new CharacterSheet("Tom", "Hardy", "4/25", ["Gloomtail", "sprinkles", "gum"], [])
         var words = sampleSheet.getWords();

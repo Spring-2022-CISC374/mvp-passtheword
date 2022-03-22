@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-export default class MainMenuScene extends Phaser.Scene {
+export default class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
 
     gameTitleText: string[] = []
     nextInstructionText: string[] = []
