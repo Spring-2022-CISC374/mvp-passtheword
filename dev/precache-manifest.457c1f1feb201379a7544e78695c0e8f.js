@@ -44,7 +44,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/mvp-passtheword/devgen.main.c0a4d52a273a0d48e52e.bundle.js"
   },
   {
-    "revision": "9bfd39f70469b6656366c333b777e0af",
+    "revision": "f8996693bc38a6e87ed37bc3f78b2511",
     "url": "/mvp-passtheword/devindex.html"
   },
   {
