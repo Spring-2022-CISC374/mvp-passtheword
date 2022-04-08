@@ -1,31 +1,9 @@
 {
-	"compilerOptions": {
-		"target": "esnext",
-		"module": "esnext",
-		"strict": false,
-		"noImplicitAny": false,
-		"noEmit": true,
-		"allowJs": true,
-		"jsx": "preserve",
-		"importHelpers": true,
-		"moduleResolution": "node",
-		"experimentalDecorators": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
-		"baseUrl": "./src",
-		"strictPropertyInitialization": false,
-		"paths": {
-		  "~/*": ["./*"]
-		},
-		"typeRoots": [
-			"node_modules/@types",
-			"node_module/phaser/types"
-		],
-		"types": [
-			"Phaser",
-			"Node"
-		]
-	  },
-	  "include": ["src/**/*"]
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es6", "dom", "es2017"],
+  },
+  "include": [
+    "src/*"
+  ]
 }
