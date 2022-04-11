@@ -6,9 +6,10 @@ import {MainMenuScene} from './MainMenuScene'
 import {CreatePassScene} from './CreatePassScene'
 import {EndScene} from './EndScene'
 
-export const config : GameConfig= {
-    width: 256*2,
-    height: 272,
+export const size = {x: 256*2, y: 272}
+const config : GameConfig= {
+    width: size.x,
+    height: size.y,
     backgroundColor: 0x353956,
     scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, EndScene],
     physics: {

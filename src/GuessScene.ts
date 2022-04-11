@@ -90,6 +90,7 @@ export class GuessScene extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.setRoundPixels(true); 
 
         // Created by Jason He
         this.mode = "Create"
