@@ -73,6 +73,7 @@ export class GuessScene extends Phaser.Scene {
         } else if (this.mode == "Guess") {
 
             if (this.players.otherPlayer.guessPassword(this.currentPassword)) {
+                Players.winner = this.players.activePlayer
                 this.userText.setColor("Green")
                 this.scene.start("endGame");
             }
@@ -89,6 +90,7 @@ export class GuessScene extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.setRoundPixels(true); 
 
         // Created by Jason He
         this.mode = "Create"

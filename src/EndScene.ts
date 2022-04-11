@@ -1,30 +1,27 @@
 import 'phaser'
+import { Players } from './Player';
+import { size } from './app';
 
 export class EndScene extends Phaser.Scene { //File created by Braxton
 
     gameTitleText: string[] = []
     nextInstructionText: string[] = []
-    timer: number = 20;
 
     constructor(){
         super("endGame");
     }
 
     create() {
-        this.gameTitleText['GAME OVER'] = this.add.text(186,70,"GAME OVER");
-        this.nextInstructionText['Left Click to Restart'] = this.add.text(136, 180,"Left Click to Restart");
+        this.cameras.main.setRoundPixels(true); 
+        this.gameTitleText['GAME OVER'] = this.add.text(size.x/2,70,"Player "+ Players.winner.id + " Wins!").setOrigin();
+        this.nextInstructionText['Left Click to Restart'] = this.add.text(size.x/2, 180,"Left Click to Restart").setOrigin();
 
-        this.input.on('pointerup', function (pointer) {
-
-            if(this.timer <= 0){
+        this.input.on('pointerdown', function (pointer) {
                 this.scene.start('MainMenu');
-            }
-
         }, this);
           // Left Click advances to next scene
     }
 
     update(){
-        this.timer--;
     }
 }
