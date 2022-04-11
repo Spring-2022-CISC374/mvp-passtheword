@@ -27,6 +27,8 @@ export class Players {
     activePlayer = new Player(1)
     otherPlayer = new Player(2)
 
+    static winner: Player
+
     setPassword(input: string[]) {
         this.activePlayer.setPassword(input)
     }

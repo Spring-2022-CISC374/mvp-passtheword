@@ -1,4 +1,5 @@
 import 'phaser'
+import { Players } from './Player';
 
 export class EndScene extends Phaser.Scene { //File created by Braxton
 
@@ -11,7 +12,7 @@ export class EndScene extends Phaser.Scene { //File created by Braxton
     }
 
     create() {
-        this.gameTitleText['GAME OVER'] = this.add.text(186,70,"GAME OVER");
+        this.gameTitleText['GAME OVER'] = this.add.text(186,70,"Player "+ Players.winner.id + " Wins!");
         this.nextInstructionText['Left Click to Restart'] = this.add.text(136, 180,"Left Click to Restart");
 
         this.input.on('pointerup', function (pointer) {
