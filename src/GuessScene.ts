@@ -60,7 +60,7 @@ export class GuessScene extends Phaser.Scene {
         }
 
         this.players.switchTurn();
-        this.keywords = this.swapKeywords();
+        this.swapKeywords();
         this.turnText.setText("Player " + this.players.activePlayer.id + "'s Turn");
 
     }
@@ -88,7 +88,7 @@ export class GuessScene extends Phaser.Scene {
 
         }
         for(var kw of this.keywords){kw.setColor("White")}
-        this.keywords = this.swapKeywords();
+        this.swapKeywords();
     }
 
     create() {
@@ -151,24 +151,10 @@ export class GuessScene extends Phaser.Scene {
         } else if (this.mode == "Guess") {
             words = this.players.otherPlayer.getKeywords()
         }
-
-        var keywords = [];
-        var widthIncrement = 10;
-        var heightIncrement = 30;
         
         for (let i = 0; i<words.length; i++) {
-            if(heightIncrement%150 == 0){
-                widthIncrement = widthIncrement + 100;
-                heightIncrement += 30;
-            }
-            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
-            keywords.push(newKeyword);
-            heightIncrement += 20;
+            this.keywords[i].setText(words[i])
         }
-        for (let i = 0; i<this.keywords.length; i++) {
-            this.keywords[i].visible = false;
-        }
-        return keywords;
     }
 
 }
