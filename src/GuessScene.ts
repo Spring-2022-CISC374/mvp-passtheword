@@ -118,7 +118,7 @@ export class GuessScene extends Phaser.Scene {
     // Converts the charactersheet data into keywords
     // Created by Braxton Madara
     formKeywords(){
-        var sampleSheet = new CharacterSheet("Tom", "Hardy", "4/25", ["Gloomtail", "sprinkles", "gum"], [])
+        var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
         var words = sampleSheet.getWords();
         var keywords = [];
         var widthIncrement = 10;
