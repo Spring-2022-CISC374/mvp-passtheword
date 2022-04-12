@@ -143,7 +143,7 @@ export class GuessScene extends Phaser.Scene {
 
 
     // Obtains the keywords that should be displayed at the moment
-    // Created by Jason He
+    // Adjusted by Jason He
     swapKeywords(){
         var words: string[];
         if (this.mode == "Create" || this.mode == "Enter") {
@@ -164,6 +164,9 @@ export class GuessScene extends Phaser.Scene {
             let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
             keywords.push(newKeyword);
             heightIncrement += 20;
+        }
+        for (let i = 0; i<this.keywords.length; i++) {
+            this.keywords[i].visible = false;
         }
         return keywords;
     }
