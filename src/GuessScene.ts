@@ -35,7 +35,7 @@ export class GuessScene extends Phaser.Scene {
             this.currentPassword.splice(this.currentPassword.indexOf(keyword.text), 1)
             keyword.setColor("White")
         }
-        else {
+        else if(this.currentPassword.length <= 4){
             this.currentPassword.push(keyword.text)
             keyword.setColor("Gray")
         }
