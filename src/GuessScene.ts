@@ -53,14 +53,15 @@ export class GuessScene extends Phaser.Scene {
         this.currentPassword = []
 
         if (this.players.activePlayer.id == 2) {
-            this.mode = "Guess"
-            this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''))
+            this.mode = "Guess";
+            this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''));
         } else {
-            this.userText.setText("Create Your Password: " + this.currentPassword.toString().replace(/,/g,''))
+            this.userText.setText("Create Your Password: " + this.currentPassword.toString().replace(/,/g,''));
         }
 
-        this.players.switchTurn()
-        this.turnText.setText("Player " + this.players.activePlayer.id + "'s Turn")
+        this.players.switchTurn();
+        this.swapKeywords();
+        this.turnText.setText("Player " + this.players.activePlayer.id + "'s Turn");
 
     }
 
@@ -87,6 +88,7 @@ export class GuessScene extends Phaser.Scene {
 
         }
         for(var kw of this.keywords){kw.setColor("White")}
+        this.swapKeywords();
     }
 
     create() {
@@ -119,7 +121,10 @@ export class GuessScene extends Phaser.Scene {
     // Created by Braxton Madara
     formKeywords(){
         var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
-        var words = sampleSheet.getWords();
+        this.players.activePlayer.setKeywords(sampleSheet.getWords());
+        this.players.otherPlayer.setKeywords(sampleSheet.getWords());
+
+        var words = this.players.activePlayer.getKeywords()
         var keywords = [];
         var widthIncrement = 10;
         var heightIncrement = 30;
@@ -134,6 +139,22 @@ export class GuessScene extends Phaser.Scene {
             heightIncrement += 20;
         }
         return keywords;
+    }
+
+
+    // Obtains the keywords that should be displayed at the moment
+    // Adjusted by Jason He
+    swapKeywords(){
+        var words: string[];
+        if (this.mode == "Create" || this.mode == "Enter") {
+            words = this.players.activePlayer.getKeywords()
+        } else if (this.mode == "Guess") {
+            words = this.players.otherPlayer.getKeywords()
+        }
+        
+        for (let i = 0; i<words.length; i++) {
+            this.keywords[i].setText(words[i])
+        }
     }
 
 }
