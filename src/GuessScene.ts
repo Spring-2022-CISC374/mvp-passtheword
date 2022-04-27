@@ -81,6 +81,7 @@ export class GuessScene extends Phaser.Scene {
             else {
                 this.userText.setColor("Red")
             }
+            this.addGuessToHistory(this.currentPassword)
             this.players.switchTurn()
             this.turnText.setText("Player " + this.players.activePlayer.id + "'s Turn")
             this.currentPassword = []
@@ -115,6 +116,20 @@ export class GuessScene extends Phaser.Scene {
 
     update() {
 
+    }
+
+    addGuessToHistory(guess: string[]){
+        var colors: [string, string][] = []
+        for(var i=0; i < this.currentPassword.length; i++){
+            var color = ""
+            color = "Red" 
+            if (this.players.otherPlayer.password.includes(guess[i])){ color = "Yellow" }
+            if(i < this.players.otherPlayer.password.length){
+                if(guess[i] == this.players.otherPlayer.password[i]){ color = "Green" }
+            }
+            colors.push([this.currentPassword[i],color])
+        }
+        this.players.activePlayer.appendToHistory(colors)
     }
 
     // Converts the charactersheet data into keywords
