@@ -10,7 +10,7 @@ export const size = {x: 256*2, y: 272}
 const config : GameConfig= {
     width: size.x,
     height: size.y,
-    backgroundColor: 0x353956,
+    backgroundColor: 0x000000,
     scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, EndScene],
     physics: {
         default: "arcade",
