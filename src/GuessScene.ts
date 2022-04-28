@@ -1,6 +1,7 @@
 import 'phaser'
 import { CharacterSheet } from './characterSheet'
 import { Players } from './Player'
+import { size } from './app'
 
 export class GuessScene extends Phaser.Scene {
 
@@ -8,6 +9,7 @@ export class GuessScene extends Phaser.Scene {
     userText: Phaser.GameObjects.Text
     turnText: Phaser.GameObjects.Text
     keywords: Phaser.GameObjects.Text[]
+    borders: Phaser.GameObjects.Shape[]
     mode: string
     players: Players
 
@@ -70,51 +72,61 @@ export class GuessScene extends Phaser.Scene {
     // Created Eddie Levin
     submit() {
         if (this.mode == "Create") {
-            this.createPassword()
+            this.createPassword();
         } else if (this.mode == "Guess") {
 
             if (this.players.otherPlayer.guessPassword(this.currentPassword)) {
-                Players.winner = this.players.activePlayer
-                this.userText.setColor("Green")
+                Players.winner = this.players.activePlayer;
+                this.userText.setColor("Green");
                 this.scene.start("endGame");
             }
             else {
-                this.userText.setColor("Red")
+                this.userText.setColor("Red");
             }
-            this.players.switchTurn()
-            this.turnText.setText("Player " + this.players.activePlayer.id + "'s Turn")
-            this.currentPassword = []
-            this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''))
+            this.players.switchTurn();
+            this.turnText.setText("Player " + this.players.activePlayer.id + "'s Turn");
+            this.currentPassword = [];
+            this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''));
 
         }
         for(var kw of this.keywords){kw.setColor("White")}
-        this.swapKeywords();
+            this.swapKeywords();
     }
 
     create() {
         this.cameras.main.setRoundPixels(true); 
 
         // Created by Jason He
-        this.mode = "Create"
-        this.players = new Players(1, 2)
+        this.mode = "Create";
+        this.players = new Players(1, 2);
 
         // WARNING: if the text in the submit button is changed, handleInteract must also be changed
-        this.userText = this.add.text(10, 180, "Create Your Password: " + this.currentPassword.toString())
-        this.turnText = this.add.text(150, 10, "Player " + this.players.activePlayer.id + "'s Turn").setFontSize(12)
-        this.add.text(10, 230, "submit").setInteractive()
+        this.userText = this.add.text(10, 180, "Create Your Password: " + this.currentPassword.toString());
+        this.turnText = this.add.text(150, 10, "Player " + this.players.activePlayer.id + "'s Turn").setFontSize(12);
+        this.add.text(10, 230, "submit").setInteractive();
 
         // Keyword Formation created by Braxton Madara
         this.keywords = this.formKeywords();
 
+        // Border Formation created by Braxton Madara
+        this.borders = this.formBorders(this.keywords);
+        
+
         // TODO: Make an input screen for chractersheet info.
 
-
         this.input.on('gameobjectdown', this.handleInteract, this)
-
     }
 
     update() {
+    }
 
+    formBorders(keywords: Phaser.GameObjects.Text[]){
+        var borders = [];
+        for(let i=0; i<keywords.length; i++){
+            var newBorder = this.add.rectangle(keywords[i].width,keywords[i].height).setOrigin(0,0).setFillStyle();
+            borders.push(newBorder);
+        }
+        return borders;
     }
 
     // Converts the charactersheet data into keywords
@@ -124,10 +136,11 @@ export class GuessScene extends Phaser.Scene {
         this.players.activePlayer.setKeywords(sampleSheet.getWords());
         this.players.otherPlayer.setKeywords(sampleSheet.getWords());
 
-        var words = this.players.activePlayer.getKeywords()
+        var words = this.players.activePlayer.getKeywords();
         var keywords = [];
         var widthIncrement = 10;
         var heightIncrement = 30;
+
         
         for (let i = 0; i<words.length; i++) {
             if(heightIncrement%150 == 0){
@@ -135,7 +148,9 @@ export class GuessScene extends Phaser.Scene {
                 heightIncrement += 30;
             }
             let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
+            
             keywords.push(newKeyword);
+
             heightIncrement += 20;
         }
         return keywords;
@@ -147,13 +162,13 @@ export class GuessScene extends Phaser.Scene {
     swapKeywords(){
         var words: string[];
         if (this.mode == "Create" || this.mode == "Enter") {
-            words = this.players.activePlayer.getKeywords()
+            words = this.players.activePlayer.getKeywords();
         } else if (this.mode == "Guess") {
-            words = this.players.otherPlayer.getKeywords()
+            words = this.players.otherPlayer.getKeywords();
         }
         
         for (let i = 0; i<words.length; i++) {
-            this.keywords[i].setText(words[i])
+            this.keywords[i].setText(words[i]);
         }
     }
 
