@@ -30,35 +30,50 @@ class Player {
     appendToHistory(input: [string,string][]){
         this.history.push(input)
     }
-    getHistroy(){
+    getHistory(){
         return this.history
     }
 }
 
-export class Players {
-    constructor(id: number, id2: number) {
-        this.activePlayer = new Player(id)
-        this.otherPlayer = new Player(id2)
-    }
-    activePlayer = new Player(1)
-    otherPlayer = new Player(2)
+class Players {
+    activePlayer: Player
+    otherPlayer: Player
 
-    static winner: Player
+    constructor() {
+        this.activePlayer = new Player(1)
+        this.otherPlayer = new Player(2)
+    }
+
+    resetPlayers() {
+        this.activePlayer = new Player(1);
+        this.otherPlayer = new Player(2);
+    }
+
+    getActivePassword() {
+        return this.activePlayer.password
+    }
+    getOtherPassword() {
+        return this.otherPlayer.password
+    }
+
+    getActiveID() {
+        return this.activePlayer.id;
+    }
 
     getKeywords() {
-        return this.activePlayer.getKeywords()
+        return this.activePlayer.getKeywords();
     }
 
     setKeywords(input: string[]) {
-        this.activePlayer.setPassword(input)
+        this.activePlayer.setPassword(input);
     }
 
     setPassword(input: string[]) {
-        this.activePlayer.setPassword(input)
+        this.activePlayer.setPassword(input);
     }
 
     guessPassword(input: string[]): boolean {
-        return this.activePlayer.guessPassword(input)
+        return this.activePlayer.guessPassword(input);
     }
 
     switchTurn(): Number{
@@ -68,3 +83,7 @@ export class Players {
         return this.activePlayer.id
     }
 }
+
+let players = new Players();
+
+export default players;
