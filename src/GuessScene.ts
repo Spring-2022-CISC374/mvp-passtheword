@@ -122,8 +122,9 @@ export class GuessScene extends Phaser.Scene {
 
     formBorders(keywords: Phaser.GameObjects.Text[]){
         var borders = [];
+
         for(let i=0; i<keywords.length; i++){
-            var newBorder = this.add.rectangle(keywords[i].width,keywords[i].height).setOrigin(0,0).setFillStyle();
+            let newBorder = this.add.rectangle(keywords[i].x-1, keywords[i].y-1, keywords[i].width+2,keywords[i].height+2).setOrigin(.5,.5).setStrokeStyle(1,0xFFFFFF);
             borders.push(newBorder);
         }
         return borders;
@@ -147,7 +148,7 @@ export class GuessScene extends Phaser.Scene {
                 widthIncrement = widthIncrement + 100;
                 heightIncrement += 30;
             }
-            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
+            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive().setOrigin(.5,.5);
             
             keywords.push(newKeyword);
 
