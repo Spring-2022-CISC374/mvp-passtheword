@@ -8,6 +8,7 @@ export class GuessScene extends Phaser.Scene {
     userText: Phaser.GameObjects.Text
     turnText: Phaser.GameObjects.Text
     keywords: Phaser.GameObjects.Text[]
+    lastGuess: Phaser.GameObjects.Container
     mode: string
     players: Players
 
@@ -81,10 +82,13 @@ export class GuessScene extends Phaser.Scene {
             else {
                 this.userText.setColor("Red")
             }
+            this.addGuessToHistory(this.currentPassword)
             this.players.switchTurn()
             this.turnText.setText("Player " + this.players.activePlayer.id + "'s Turn")
             this.currentPassword = []
             this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''))
+            this.updateLastGuessText()
+
 
         }
         for(var kw of this.keywords){kw.setColor("White")}
@@ -102,6 +106,7 @@ export class GuessScene extends Phaser.Scene {
         this.userText = this.add.text(10, 180, "Create Your Password: " + this.currentPassword.toString())
         this.turnText = this.add.text(150, 10, "Player " + this.players.activePlayer.id + "'s Turn").setFontSize(12)
         this.add.text(10, 230, "submit").setInteractive()
+        this.lastGuess=this.add.container(110, 230 ,this.add.text(0,0,"Last Guess: "))
 
         // Keyword Formation created by Braxton Madara
         this.keywords = this.formKeywords();
@@ -115,6 +120,34 @@ export class GuessScene extends Phaser.Scene {
 
     update() {
 
+    }
+
+    updateLastGuessText(){
+        this.lastGuess.removeAll(true)
+        this.lastGuess.add(this.add.text(0,0,"Last Guess: "))
+        let position = "Last Guess: ".length
+        let guessNum = this.players.activePlayer.getHistroy().length 
+        if(guessNum == 0){ return }
+        var prevGuess = this.players.activePlayer.getHistroy()[guessNum-1]
+        for (let tuple of prevGuess){
+            let word = tuple[0], color = tuple[1]
+            this.lastGuess.add(this.add.text(position*11,0,word).setColor(color))
+            position += word.length
+        }
+    } 
+
+    addGuessToHistory(guess: string[]){
+        var colors: [string, string][] = []
+        for(var i=0; i < this.currentPassword.length; i++){
+            var color = ""
+            color = "Red" 
+            if (this.players.otherPlayer.password.includes(guess[i])){ color = "Yellow" }
+            if(i < this.players.otherPlayer.password.length){
+                if(guess[i] == this.players.otherPlayer.password[i]){ color = "Green" }
+            }
+            colors.push([this.currentPassword[i],color])
+        }
+        this.players.activePlayer.appendToHistory(colors)
     }
 
     // Converts the charactersheet data into keywords

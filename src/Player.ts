@@ -5,6 +5,7 @@ class Player {
     id: number
     keywords: string[]
     password: string[] = []
+    history: [string,string][][] = []
     charges = 0
 
     getKeywords() {
@@ -25,6 +26,12 @@ class Player {
             if (this.password[i] != input[i]) { return false }
         }
         return true
+    }
+    appendToHistory(input: [string,string][]){
+        this.history.push(input)
+    }
+    getHistroy(){
+        return this.history
     }
 }
 
