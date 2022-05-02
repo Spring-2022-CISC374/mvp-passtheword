@@ -26,12 +26,5 @@ export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
         .on('pointerdown', () => this.scene.start('guess'), this.btnPressSound.play())
         .on('pointerover', () => this.startBtn.setStyle({ color: '#66ff00'}))
         .on('pointerout', () => this.startBtn.setStyle({ color: '#000000' }) );
-
-        // this.input.on('pointerdown', function (pointer) {
-
-        //     this.scene.start('guess');
-
-        // }, this);
-          // Left Click advances to next scene
     }
 }
