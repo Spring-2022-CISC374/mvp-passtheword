@@ -18,10 +18,11 @@ export class GuessScene extends Phaser.Scene {
 
     // calls diferent functions depending on what kind of object is clicked 
     // Created by Eddie Levin
-    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text | PowerUp) {
+    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
         if(!(gameObject instanceof Phaser.GameObjects.Text)){return}
         if (gameObject instanceof PowerUp){
             gameObject.power()
+            this.powerups.updateHeading()
         }
         if (this.keywords.includes(gameObject)) {
             this.appendGuess(gameObject)
