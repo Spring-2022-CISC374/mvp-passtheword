@@ -43,8 +43,8 @@ export class Button extends Phaser.GameObjects.Container{
             })
     }
 
-    setText(text: string){
-        this.text = this.scene.add.text(0, 0, text).setOrigin(.5)
+    setText(newText: string){
+        this.text.text = newText
     }
 
 }
