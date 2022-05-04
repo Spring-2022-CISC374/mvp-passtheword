@@ -106,7 +106,11 @@ export class GuessScene extends Phaser.Scene {
                 widthIncrement = widthIncrement + 100;
                 heightIncrement += 30;
             }
-            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
+            let color = "white"
+            if(players.activePlayer.colorMap[words[i]]){
+                color = players.activePlayer.colorMap[words[i]]
+            }
+            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i],).setColor(color).setInteractive();
             keywords.push(newKeyword);
             heightIncrement += 20;
         }
