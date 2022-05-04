@@ -1,8 +1,7 @@
 import 'phaser'
 import { CharacterSheet } from './characterSheet'
-import { Players } from './Player'
-import { Button } from './keywordTile'
 import players from './Player'
+import { Button } from './keywordTile'
 import { PowerUp, PowerUps } from './PowerUps'
 
 export class GuessScene extends Phaser.Scene {
@@ -13,7 +12,6 @@ export class GuessScene extends Phaser.Scene {
     keywords: Button[]
     coordinates: Button[][]
     mode: string
-    players: Players
 
     lastGuess: Phaser.GameObjects.Container
     powerups: PowerUps
@@ -41,6 +39,7 @@ export class GuessScene extends Phaser.Scene {
           }
         }
     }
+}
 
     // when a keyword is clicked, that keyword is appended to the list of current guesses
     //  if the keyword is part of the guess, it is removed from the list
@@ -106,10 +105,10 @@ export class GuessScene extends Phaser.Scene {
 
     formKeywords(){
         var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
-        this.players.activePlayer.setKeywords(sampleSheet.getWords());
-        this.players.otherPlayer.setKeywords(sampleSheet.getWords());
+        players.activePlayer.setKeywords(sampleSheet.getWords());
+        players.otherPlayer.setKeywords(sampleSheet.getWords());
 
-        var words = this.players.activePlayer.getKeywords()
+        var words = players.activePlayer.getKeywords()
         var keywordTiles: Button[] = [] // Return value
         var outerArray = []
         let k = 0 // word count
