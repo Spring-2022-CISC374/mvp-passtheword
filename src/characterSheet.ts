@@ -1,4 +1,11 @@
 export class CharacterSheet {
+
+    firstName: string
+    lastName: string
+    birthday: string
+    likes: string[]
+    misc: string[]
+
     constructor(firstName: string, lastName: string, birthday: string, likes: string[], misc: string[]){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -6,12 +13,6 @@ export class CharacterSheet {
         this.likes = likes;
         this.misc = misc;
     }
-
-    firstName: string
-    lastName: string
-    birthday: string
-    likes: string[]
-    misc: string[]
 
     getWords(){
         var sheetWords: string[] = [this.firstName, this.lastName, this.birthday].concat(this.likes).concat(this.misc);
