@@ -5,17 +5,28 @@ import {GuessScene} from './GuessScene'
 import {MainMenuScene} from './MainMenuScene'
 import {CreatePassScene} from './CreatePassScene'
 import {EndScene} from './EndScene'
+import {TransitionScene} from './TransitionScene'
 
 export const size = {x: 256*2, y: 272}
 const config : GameConfig= {
     width: size.x,
     height: size.y,
-    backgroundColor: 0x353956,
-    scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, EndScene],
+    backgroundColor: 0x000000,
+    scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, TransitionScene, EndScene],
     physics: {
         default: "arcade",
         arcade: {debug:false}
     }
+}
+
+export const musicConfig = {
+  mute: false,
+  volume: 0.2,
+  rate: 1,
+  detune: 0,
+  seek: 0,
+  loop: true,
+  delay: 0
 }
 
 export const gameSettings = {

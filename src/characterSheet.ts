@@ -39,7 +39,7 @@ export class CharacterSheet {
 
         shuffle(totalWords);
         
-        var randomWords: string[] = totalWords.slice(0, 15);
+        var randomWords: string[] = totalWords.slice(0, 9);
 
         return randomWords;
     }
