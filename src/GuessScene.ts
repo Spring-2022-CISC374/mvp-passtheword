@@ -1,6 +1,7 @@
 import 'phaser'
 import { CharacterSheet } from './characterSheet'
 import players from './Player'
+import { PowerUp, PowerUps } from './PowerUps'
 
 export class GuessScene extends Phaser.Scene {
 
@@ -9,6 +10,7 @@ export class GuessScene extends Phaser.Scene {
     turnText: Phaser.GameObjects.Text
     keywords: Phaser.GameObjects.Text[]
     lastGuess: Phaser.GameObjects.Container
+    powerups: PowerUps
     
     constructor() {
         super("guess");
@@ -16,8 +18,12 @@ export class GuessScene extends Phaser.Scene {
 
     // calls diferent functions depending on what kind of object is clicked 
     // Created by Eddie Levin
-    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
-        if (gameObject.type != "Text") { return }
+    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
+        if(!(gameObject instanceof Phaser.GameObjects.Text)){return}
+        if (gameObject instanceof PowerUp){
+            gameObject.power()
+            this.powerups.updateHeading()
+        }
         if (this.keywords.includes(gameObject)) {
             this.appendGuess(gameObject)
         }
@@ -78,6 +84,8 @@ export class GuessScene extends Phaser.Scene {
 
 
         this.input.on('gameobjectdown', this.handleInteract, this)
+
+        this.powerups = new PowerUps(this, 300,10)
 
     }
 

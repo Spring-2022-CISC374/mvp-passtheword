@@ -6,7 +6,7 @@ class Player {
     keywords: string[]
     password: string[] = []
     history: [string,string][][] = []
-    charges = 0
+    charges = 10
 
     getKeywords() {
         return this.keywords
