@@ -5,7 +5,8 @@ class Player {
     id: number
     keywords: string[]
     password: string[] = []
-    charges = 0
+    history: [string,string][][] = []
+    charges = 10
 
     getKeywords() {
         return this.keywords
@@ -26,38 +27,77 @@ class Player {
         }
         return true
     }
+    appendToHistory(input: [string,string][]){
+        this.history.push(input)
+    }
+    getHistory(){
+        return this.history
+    }
 }
 
-export class Players {
-    constructor(id: number, id2: number) {
-        this.activePlayer = new Player(id)
-        this.otherPlayer = new Player(id2)
-    }
-    activePlayer = new Player(1)
-    otherPlayer = new Player(2)
+class Players {
+    activePlayer: Player
+    otherPlayer: Player
+    round: number
 
-    static winner: Player
+    constructor() {
+        this.activePlayer = new Player(1)
+        this.otherPlayer = new Player(2)
+        this.round = -1
+    }
+
+    resetPlayers() {
+        this.activePlayer = new Player(1);
+        this.otherPlayer = new Player(2);
+        this.round = -1
+    }
+
+    getActivePassword() {
+        return this.activePlayer.password
+    }
+    getOtherPassword() {
+        return this.otherPlayer.password
+    }
+
+    getActiveID() {
+        return this.activePlayer.id;
+    }
 
     getKeywords() {
-        return this.activePlayer.getKeywords()
+        return this.activePlayer.getKeywords();
     }
 
     setKeywords(input: string[]) {
-        this.activePlayer.setPassword(input)
+        this.activePlayer.setPassword(input);
     }
 
     setPassword(input: string[]) {
-        this.activePlayer.setPassword(input)
+        this.activePlayer.setPassword(input);
     }
 
     guessPassword(input: string[]): boolean {
-        return this.activePlayer.guessPassword(input)
+        return this.activePlayer.guessPassword(input);
     }
 
-    switchTurn(): Number{
+    switchTurn(): number{
         let tempPlayer = this.otherPlayer
         this.otherPlayer = this.activePlayer
         this.activePlayer = tempPlayer
+        this.round += 1
         return this.activePlayer.id
     }
+
+    findState(): string{
+        if (this.round < 1) {
+            return "Create"
+        } else if (this.round == 1) {
+            return "Swap"
+        } else {
+            return "Guess"
+        }
+    }
 }
+
+let players = new Players();
+
+export default players;
