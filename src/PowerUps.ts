@@ -10,8 +10,10 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.y = y
         this.heading = this.scene.add.text(0,0,"You have " + players.activePlayer.charges + " charges")
         this.add(this.heading)
+        // Add Additional PowerUps Here
         this.add(new PowerUp(this.scene,20,"Log Message", 3, function() {console.log("testing 123");}))
         this.add(new PowerUp(this.scene,40,"Do Nothing", 1, function() {}))
+        this.add(new PowerUp(this.scene,60,"Show First Keyword", 1, this.showFirstKeyword))
 
         this.scene.add.existing(this)
     }
@@ -19,6 +21,9 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.remove(this.heading,true)
         this.heading = this.scene.add.text(0,0,"You have " + players.activePlayer.charges + " charges")
         this.add(this.heading)
+    }
+    showFirstKeyword(){
+        players.activePlayer.appendToHistory([[players.getOtherPassword()[0], "green"]])
     }
 
 }
@@ -36,8 +41,7 @@ export class PowerUp extends Phaser.GameObjects.Text{
                 players.activePlayer.charges-=cost;
             }
         }
-        this.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_DOWN, this.power, this)
-        this.type = "Powerup"
+        this.setInteractive()
         this.scene.add.existing(this)
         
     }
