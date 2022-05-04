@@ -113,15 +113,6 @@ export class GuessScene extends Phaser.Scene {
         // Keyword Formation created by Braxton Madara
         this.keywords = this.formKeywords();
 
-        // Testing the Button
-        //const button = new Button(this, 250, 120, 'upTexture', 'overTexture', 'downTexture', "Click Me")
-        //this.add.existing(button)
-
-       // button.setInteractive()
-            //.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-              //  console.log("Pressed")
-            //})
-
         // TODO: Make an input screen for chractersheet info.
 
         this.input.on('gameobjectdown', this.handleButtonClick, this)
@@ -130,7 +121,7 @@ export class GuessScene extends Phaser.Scene {
     update() {
     }
 
-    // Converts the charactersheet data into keywords
+    // Converts the charactersheet data into buttons
     // Created by Braxton Madara
     formKeywords(){
         var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
@@ -138,24 +129,27 @@ export class GuessScene extends Phaser.Scene {
         this.players.otherPlayer.setKeywords(sampleSheet.getWords());
 
         var words = this.players.activePlayer.getKeywords()
-        var keywordTiles: Button[] = []
+        var keywordTiles: Button[] = [] // Return value
         var outerArray = []
-        let k = 0
+        let k = 0 // word count
 
         for(let i = 55; i<462; i+=100){ // iterates along the width of the screen
-            var innerArray = []
-            if(words[k])
-                for(let j = 60; j<180; j+=45){ // iterates along the height given
-                    var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
-                    innerArray.push(button)
-                    keywordTiles.push(button)
-                    k++
-                }
+            if(words[k]) // If there are still words left make another innerArray
+                var innerArray = []
+            for(let j = 60; j<180; j+=45){ // iterates along the height given
+                if(!words[k])
+                    break // Stops creating buttons if we are out of words
+                var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
+                innerArray.push(button)
+                keywordTiles.push(button)
+                k++
+            }
             outerArray.push(innerArray)
         }
         
         this.coordinates = outerArray
 
+        // Makes each button appear and call handleButtonClick when pressed
         keywordTiles.forEach((button) => {
             this.add.existing(button)
             button.setInteractive()
