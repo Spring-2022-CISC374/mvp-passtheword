@@ -6,7 +6,6 @@ export class BootScene extends Phaser.Scene { //Most scenes were made by Kyle Ko
     }
 
     preload(){
-        
     }
     
     create() {

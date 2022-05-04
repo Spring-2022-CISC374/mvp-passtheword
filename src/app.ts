@@ -7,6 +7,8 @@ import {CreatePassScene} from './CreatePassScene'
 import {EndScene} from './EndScene'
 
 export const size = {x: 256*2, y: 272}
+
+
 const config : GameConfig= {
     width: size.x,
     height: size.y,
@@ -26,8 +28,13 @@ export const gameSettings = {
 }
 
 export class PTWGame extends Phaser.Game {
+  
+  music: Phaser.Sound.BaseSound
   constructor(config: GameConfig) {
     super(config);
+  }
+
+  create(){
   }
 };
 
