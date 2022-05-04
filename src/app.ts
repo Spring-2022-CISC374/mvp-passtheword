@@ -7,7 +7,7 @@ import {CreatePassScene} from './CreatePassScene'
 import {EndScene} from './EndScene'
 import {TransitionScene} from './TransitionScene'
 
-export const size = {x: 256*2, y: 272}
+export const size = {x: 800, y: 350}
 const config : GameConfig= {
     width: size.x,
     height: size.y,

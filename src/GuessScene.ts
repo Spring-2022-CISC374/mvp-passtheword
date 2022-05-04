@@ -23,20 +23,16 @@ export class GuessScene extends Phaser.Scene {
     // calls submit function if the submit text object is clicked
     // Created by Eddie Levin
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
-        if(!(gameObject instanceof Phaser.GameObjects.Text || gameObject instanceof Button)){return}
         if(gameObject instanceof Button){
             this.appendGuess(gameObject.text)
+        }
         if (gameObject instanceof PowerUp){
             gameObject.power()
             this.powerups.updateHeading()
         }
         if (gameObject instanceof Phaser.GameObjects.Text){
-          if (this.keywords.includes(gameObject)) {
-              this.appendGuess(gameObject)
-          }
           if (gameObject.text == "submit") {
               this.submit()
-          }
         }
     }
 }
@@ -93,7 +89,7 @@ export class GuessScene extends Phaser.Scene {
 
         this.input.on('gameobjectdown', this.handleInteract, this)
 
-        this.powerups = new PowerUps(this, 300,10)
+        this.powerups = new PowerUps(this, 550,10)
 
     }
 
