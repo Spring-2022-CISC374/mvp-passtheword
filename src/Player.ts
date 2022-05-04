@@ -38,15 +38,18 @@ class Player {
 class Players {
     activePlayer: Player
     otherPlayer: Player
+    round: number
 
     constructor() {
         this.activePlayer = new Player(1)
         this.otherPlayer = new Player(2)
+        this.round = -1
     }
 
     resetPlayers() {
         this.activePlayer = new Player(1);
         this.otherPlayer = new Player(2);
+        this.round = -1
     }
 
     getActivePassword() {
@@ -76,11 +79,22 @@ class Players {
         return this.activePlayer.guessPassword(input);
     }
 
-    switchTurn(): Number{
+    switchTurn(): number{
         let tempPlayer = this.otherPlayer
         this.otherPlayer = this.activePlayer
         this.activePlayer = tempPlayer
+        this.round += 1
         return this.activePlayer.id
+    }
+
+    findState(): string{
+        if (this.round < 1) {
+            return "Create"
+        } else if (this.round == 1) {
+            return "Swap"
+        } else {
+            return "Guess"
+        }
     }
 }
 

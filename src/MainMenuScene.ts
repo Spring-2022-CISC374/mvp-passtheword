@@ -18,7 +18,7 @@ export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
 
         this.input.on('pointerdown', function (pointer) {
 
-            this.scene.start('createPassword');
+            this.scene.start('transition');
 
         }, this);
           // Left Click advances to next scene
