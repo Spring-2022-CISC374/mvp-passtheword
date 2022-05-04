@@ -18,12 +18,6 @@ export class GuessScene extends Phaser.Scene {
         super("guess");
     }
 
-    preLoad(){
-        this.load.image('upTexture', './assets/icons/buttonTextures/ButtonUp.png')
-        this.load.image('overTexture', './assets/icons/buttonTextures/ButtonOver.png')
-        this.load.image('downTexture', './assets/icons/buttonTextures/ButtonDown.png')
-    }
-
     // calls diferent functions depending on what kind of object is clicked 
     // Created by Eddie Levin
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
@@ -116,7 +110,7 @@ export class GuessScene extends Phaser.Scene {
         this.keywords = this.formKeywords();
 
         // Testing the Button
-        const button = new Button(this, screen.width/2, screen.height/2, 'upTexture', 'overTexture', 'downTexture', "Click Me")
+        const button = new Button(this, 250, 120, 'upTexture', 'overTexture', 'downTexture', "Click Me")
         this.add.existing(button)
 
         button.setInteractive()

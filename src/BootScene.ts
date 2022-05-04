@@ -6,7 +6,9 @@ export class BootScene extends Phaser.Scene { //Most scenes were made by Kyle Ko
     }
 
     preload(){
-        
+        this.load.image('upTexture', './assets/icons/buttonTextures/ButtonUp.png')
+        this.load.image('overTexture', './assets/icons/buttonTextures/ButtonOver.png')
+        this.load.image('downTexture', './assets/icons/buttonTextures/ButtonDown.png')
     }
     
     create() {

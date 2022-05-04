@@ -6,7 +6,7 @@ export class Button extends Phaser.GameObjects.Container{
 
     private text: Phaser.GameObjects.Text
 
-    constructor(scene: Phaser.Scene, x: number, y:number, upTexture: string, downTexture: string, overTexture: string, text: string){
+    constructor(scene: Phaser.Scene, x: number, y:number, upTexture: string, overTexture: string, downTexture: string, text: string){
         super(scene, x, y)
 
         this.upImage = scene.add.image(0, 0, upTexture)
@@ -19,10 +19,21 @@ export class Button extends Phaser.GameObjects.Container{
         this.add(this.downImage)
         this.add(this.text)
 
+        this.upImage.setVisible(true)
         this.overImage.setVisible(false)
         this.downImage.setVisible(false)
+        this.text.setVisible(true)
 
-        this.setSize(this.upImage.width, this.upImage.height)
+        this.upImage.scaleX = .5
+        this.upImage.scaleY = .8
+
+        this.overImage.scaleX = .5
+        this.overImage.scaleY = .8
+
+        this.downImage.scaleX = .5
+        this.downImage.scaleY = .8
+
+        this.setSize(this.upImage.width*.5, this.upImage.height*.8)
 
         this.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
