@@ -1,5 +1,7 @@
 import 'phaser'
 import { CharacterSheet } from './characterSheet'
+import { Players } from './Player'
+import { Button } from './keywordTile'
 import players from './Player'
 import { PowerUp, PowerUps } from './PowerUps'
 
@@ -8,27 +10,35 @@ export class GuessScene extends Phaser.Scene {
     currentPassword: string[] = []
     userText: Phaser.GameObjects.Text
     turnText: Phaser.GameObjects.Text
-    keywords: Phaser.GameObjects.Text[]
+    keywords: Button[]
+    coordinates: Button[][]
+    mode: string
+    players: Players
+
     lastGuess: Phaser.GameObjects.Container
     powerups: PowerUps
-    
+
     constructor() {
         super("guess");
     }
 
-    // calls diferent functions depending on what kind of object is clicked 
+    // calls submit function if the submit text object is clicked
     // Created by Eddie Levin
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
-        if(!(gameObject instanceof Phaser.GameObjects.Text)){return}
+        if(!(gameObject instanceof Phaser.GameObjects.Text || gameObject instanceof Button)){return}
+        if(gameObject instanceof Button){
+            this.appendGuess(gameObject.text)
         if (gameObject instanceof PowerUp){
             gameObject.power()
             this.powerups.updateHeading()
         }
-        if (this.keywords.includes(gameObject)) {
-            this.appendGuess(gameObject)
-        }
-        if (gameObject.text == "submit") {
-            this.submit()
+        if (gameObject instanceof Phaser.GameObjects.Text){
+          if (this.keywords.includes(gameObject)) {
+              this.appendGuess(gameObject)
+          }
+          if (gameObject.text == "submit") {
+              this.submit()
+          }
         }
     }
 
@@ -40,9 +50,9 @@ export class GuessScene extends Phaser.Scene {
             this.currentPassword.splice(this.currentPassword.indexOf(keyword.text), 1)
             keyword.setColor("White")
         }
-        else if(this.currentPassword.length <= 4){
+        else if(this.currentPassword.length < 5){
             this.currentPassword.push(keyword.text)
-            keyword.setColor("Gray")
+            keyword.setColor("Black")
         }
         this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''))
         this.userText.setColor("White")
@@ -53,7 +63,6 @@ export class GuessScene extends Phaser.Scene {
     //  and then the turn is switched to the opponent and the current guess is cleared
     // Created Eddie Levin
     submit() {
-
         if (players.otherPlayer.guessPassword(this.currentPassword)) {
             this.userText.setColor("Green")
             this.currentPassword = []
@@ -77,11 +86,11 @@ export class GuessScene extends Phaser.Scene {
         this.add.text(10, 230, "submit").setInteractive()
         this.setLastGuessText()
 
+
         // Keyword Formation created by Braxton Madara
         this.keywords = this.formKeywords();
 
         // TODO: Make an input screen for chractersheet info.
-
 
         this.input.on('gameobjectdown', this.handleInteract, this)
 
@@ -90,27 +99,45 @@ export class GuessScene extends Phaser.Scene {
     }
 
     update() {
-
     }
 
-    // Converts the charactersheet data into keywords
+    // Converts the charactersheet data into buttons
     // Created by Braxton Madara
-    formKeywords() {
-        var words = players.otherPlayer.getKeywords()
-        var keywords = [];
-        var widthIncrement = 10;
-        var heightIncrement = 30;
-        
-        for (let i = 0; i<words.length; i++) {
-            if(heightIncrement%150 == 0){
-                widthIncrement = widthIncrement + 100;
-                heightIncrement += 30;
+
+    formKeywords(){
+        var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
+        this.players.activePlayer.setKeywords(sampleSheet.getWords());
+        this.players.otherPlayer.setKeywords(sampleSheet.getWords());
+
+        var words = this.players.activePlayer.getKeywords()
+        var keywordTiles: Button[] = [] // Return value
+        var outerArray = []
+        let k = 0 // word count
+
+        for(let i = 55; i<462; i+=100){ // iterates along the width of the screen
+            if(words[k]) // If there are still words left make another innerArray
+                var innerArray = []
+            for(let j = 60; j<180; j+=45){ // iterates along the height given
+                if(!words[k])
+                    break // Stops creating buttons if we are out of words
+                var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
+                innerArray.push(button)
+                keywordTiles.push(button)
+                k++
+
             }
-            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
-            keywords.push(newKeyword);
-            heightIncrement += 20;
+            outerArray.push(innerArray)
         }
-        return keywords;
+        
+        this.coordinates = outerArray
+
+        // Makes each button appear and call handleButtonClick when pressed
+        keywordTiles.forEach((button) => {
+            this.add.existing(button)
+            button.setInteractive()
+        })
+
+        return keywordTiles;
     }
 
     // Created by Eddie Levin
