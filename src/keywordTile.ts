@@ -4,7 +4,7 @@ export class Button extends Phaser.GameObjects.Container{
     private overImage: Phaser.GameObjects.Image
     private downImage: Phaser.GameObjects.Image
 
-    private text: Phaser.GameObjects.Text
+    public text: Phaser.GameObjects.Text
 
     constructor(scene: Phaser.Scene, x: number, y:number, upTexture: string, overTexture: string, downTexture: string, text: string){
         super(scene, x, y)

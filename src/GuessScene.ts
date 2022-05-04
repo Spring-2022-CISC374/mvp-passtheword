@@ -1,7 +1,6 @@
 import 'phaser'
 import { CharacterSheet } from './characterSheet'
 import { Players } from './Player'
-import { size } from './app'
 import { Button } from './keywordTile'
 
 export class GuessScene extends Phaser.Scene {
@@ -9,8 +8,8 @@ export class GuessScene extends Phaser.Scene {
     currentPassword: string[] = []
     userText: Phaser.GameObjects.Text
     turnText: Phaser.GameObjects.Text
-    keywords: Phaser.GameObjects.Text[]
-    borders: Phaser.GameObjects.Shape[]
+    keywords: Button[]
+    coordinates: Button[][]
     mode: string
     players: Players
 
@@ -18,13 +17,18 @@ export class GuessScene extends Phaser.Scene {
         super("guess");
     }
 
-    // calls diferent functions depending on what kind of object is clicked 
-    // Created by Eddie Levin
-    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
-        if (gameObject.type != "Text") { return }
+    // calls appendGuess with the text on the button if one is pressed
+    handleButtonClick(pointer: Phaser.Input.Pointer, gameObject: Button){
+        if (gameObject.type != "Button") { return }
         if (this.keywords.includes(gameObject)) {
-            this.appendGuess(gameObject)
+            this.appendGuess(gameObject.text)
         }
+    }
+
+    // calls submit function if the submit text object is clicked
+    // Created by Eddie Levin
+    handleSubmit(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
+        if (gameObject.type != "Text") { return }
         if (gameObject.text == "submit") {
             this.submit()
         }
@@ -90,7 +94,7 @@ export class GuessScene extends Phaser.Scene {
             this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''));
 
         }
-        for(var kw of this.keywords){kw.setColor("White")}
+        for(var kw of this.keywords){kw.text.setColor("White")}
             this.swapKeywords();
     }
 
@@ -110,34 +114,20 @@ export class GuessScene extends Phaser.Scene {
         this.keywords = this.formKeywords();
 
         // Testing the Button
-        const button = new Button(this, 250, 120, 'upTexture', 'overTexture', 'downTexture', "Click Me")
-        this.add.existing(button)
+        //const button = new Button(this, 250, 120, 'upTexture', 'overTexture', 'downTexture', "Click Me")
+        //this.add.existing(button)
 
-        button.setInteractive()
-            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                console.log("Pressed")
-            })
-
-        // Border Formation created by Braxton Madara
-        //this.borders = this.formBorders(this.keywords);
-        
+       // button.setInteractive()
+            //.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+              //  console.log("Pressed")
+            //})
 
         // TODO: Make an input screen for chractersheet info.
 
-        this.input.on('gameobjectdown', this.handleInteract, this)
+        this.input.on('gameobjectdown', this.handleButtonClick, this)
     }
 
     update() {
-    }
-
-    formBorders(keywords: Phaser.GameObjects.Text[]){
-        var borders = [];
-
-        for(let i=0; i<keywords.length; i++){
-            let newBorder = this.add.rectangle(keywords[i].x-1, keywords[i].y-1, keywords[i].width+2,keywords[i].height+2).setOrigin(.5,.5).setStrokeStyle(1,0xFFFFFF);
-            borders.push(newBorder);
-        }
-        return borders;
     }
 
     // Converts the charactersheet data into keywords
@@ -147,26 +137,34 @@ export class GuessScene extends Phaser.Scene {
         this.players.activePlayer.setKeywords(sampleSheet.getWords());
         this.players.otherPlayer.setKeywords(sampleSheet.getWords());
 
-        //var words = this.players.activePlayer.getKeywords();
-        var keywords = [];
-        //var widthIncrement = 10;
-        //var heightIncrement = 30;
+        var words = this.players.activePlayer.getKeywords()
+        var keywordTiles: Button[] = []
+        var outerArray = []
+        let k = 0
 
-
+        for(let i = 55; i<462; i+=100){ // iterates along the width of the screen
+            var innerArray = []
+            if(words[k])
+                for(let j = 60; j<180; j+=45){ // iterates along the height given
+                    var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
+                    innerArray.push(button)
+                    keywordTiles.push(button)
+                    k++
+                }
+            outerArray.push(innerArray)
+        }
         
-        /*for (let i = 0; i<words.length; i++) {
-            if(heightIncrement%150 == 0){
-                widthIncrement = widthIncrement + 100;
-                heightIncrement += 30;
-            }
-            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive().setOrigin(.5,.5);
-            
-            keywords.push(newKeyword);
+        this.coordinates = outerArray
 
-            heightIncrement += 20;
-        }*/
+        keywordTiles.forEach((button) => {
+            this.add.existing(button)
+            button.setInteractive()
+                .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                    this.handleButtonClick
+                }, this)
+        })
 
-        return keywords;
+        return keywordTiles;
     }
 
 
