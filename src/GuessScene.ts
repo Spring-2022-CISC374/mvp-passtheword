@@ -2,6 +2,7 @@ import 'phaser'
 import { CharacterSheet } from './characterSheet'
 import { Players } from './Player'
 import { size } from './app'
+import { Button } from './keywordTile'
 
 export class GuessScene extends Phaser.Scene {
 
@@ -15,6 +16,12 @@ export class GuessScene extends Phaser.Scene {
 
     constructor() {
         super("guess");
+    }
+
+    preLoad(){
+        this.load.image('upTexture', './assets/icons/buttonTextures/ButtonUp.png')
+        this.load.image('overTexture', './assets/icons/buttonTextures/ButtonOver.png')
+        this.load.image('downTexture', './assets/icons/buttonTextures/ButtonDown.png')
     }
 
     // calls diferent functions depending on what kind of object is clicked 
@@ -108,8 +115,17 @@ export class GuessScene extends Phaser.Scene {
         // Keyword Formation created by Braxton Madara
         this.keywords = this.formKeywords();
 
+        // Testing the Button
+        const button = new Button(this, screen.width/2, screen.height/2, 'upTexture', 'overTexture', 'downTexture', "Click Me")
+        this.add.existing(button)
+
+        button.setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                console.log("Pressed")
+            })
+
         // Border Formation created by Braxton Madara
-        this.borders = this.formBorders(this.keywords);
+        //this.borders = this.formBorders(this.keywords);
         
 
         // TODO: Make an input screen for chractersheet info.
@@ -137,13 +153,14 @@ export class GuessScene extends Phaser.Scene {
         this.players.activePlayer.setKeywords(sampleSheet.getWords());
         this.players.otherPlayer.setKeywords(sampleSheet.getWords());
 
-        var words = this.players.activePlayer.getKeywords();
+        //var words = this.players.activePlayer.getKeywords();
         var keywords = [];
-        var widthIncrement = 10;
-        var heightIncrement = 30;
+        //var widthIncrement = 10;
+        //var heightIncrement = 30;
+
 
         
-        for (let i = 0; i<words.length; i++) {
+        /*for (let i = 0; i<words.length; i++) {
             if(heightIncrement%150 == 0){
                 widthIncrement = widthIncrement + 100;
                 heightIncrement += 30;
@@ -153,7 +170,8 @@ export class GuessScene extends Phaser.Scene {
             keywords.push(newKeyword);
 
             heightIncrement += 20;
-        }
+        }*/
+
         return keywords;
     }
 

@@ -1,22 +1,26 @@
-export class keywordTile extends Phaser.GameObjects.Container{
+export class Button extends Phaser.GameObjects.Container{
     
-    upImage: Phaser.GameObjects.Image
-    overImage: Phaser.GameObjects.Image
-    downImage: Phaser.GameObjects.Image
-    text: Phaser.GameObjects.Text
+    private upImage: Phaser.GameObjects.Image
+    private overImage: Phaser.GameObjects.Image
+    private downImage: Phaser.GameObjects.Image
 
-    constructor(scene: Phaser.Scene, x: number, y:number, text: string){
+    private text: Phaser.GameObjects.Text
+
+    constructor(scene: Phaser.Scene, x: number, y:number, upTexture: string, downTexture: string, overTexture: string, text: string){
         super(scene, x, y)
 
-        this.upImage = scene.add.image(0, 0, './assets/buttonTextures/ButtonUp.png')
-        this.overImage = scene.add.image(0, 0, './assets/buttonTextures/ButtonOver.png')
-        this.downImage = scene.add.image(0, 0, './assets/buttonTextures/ButtonDown.png')
+        this.upImage = scene.add.image(0, 0, upTexture)
+        this.overImage = scene.add.image(0, 0, overTexture)
+        this.downImage = scene.add.image(0, 0, downTexture)
         this.text = scene.add.text(0, 0, text).setOrigin(.5)
 
         this.add(this.upImage)
         this.add(this.overImage)
         this.add(this.downImage)
         this.add(this.text)
+
+        this.overImage.setVisible(false)
+        this.downImage.setVisible(false)
 
         this.setSize(this.upImage.width, this.upImage.height)
 
@@ -30,14 +34,13 @@ export class keywordTile extends Phaser.GameObjects.Container{
                 this.downImage.setVisible(true)
             })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-                this.downImage.setVisible(false)
                 this.overImage.setVisible(true)
+                this.downImage.setVisible(false)
             })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-                this.overImage.setVisible(false)
                 this.upImage.setVisible(true)
+                this.overImage.setVisible(false)
             })
-
     }
 
     setText(text: string){
