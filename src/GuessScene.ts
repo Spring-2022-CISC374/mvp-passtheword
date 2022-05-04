@@ -43,7 +43,11 @@ export class GuessScene extends Phaser.Scene {
     appendGuess(keyword: Phaser.GameObjects.Text) {
         if (this.currentPassword.includes(keyword.text)) {
             this.currentPassword.splice(this.currentPassword.indexOf(keyword.text), 1)
-            keyword.setColor("White")
+            let color = "White"
+            if(players.activePlayer.colorMap[keyword.text]){
+                color = players.activePlayer.colorMap[keyword.text]
+            }
+            keyword.setColor(color)
         }
         else if(this.currentPassword.length < 5){
             this.currentPassword.push(keyword.text)
@@ -122,6 +126,11 @@ export class GuessScene extends Phaser.Scene {
 
             }
             outerArray.push(innerArray)
+
+            let color = "white"
+            if(players.activePlayer.colorMap[words[i]]){
+                color = players.activePlayer.colorMap[words[i]]
+            }
         }
         
         this.coordinates = outerArray
