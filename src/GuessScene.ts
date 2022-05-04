@@ -11,9 +11,11 @@ export class GuessScene extends Phaser.Scene {
     turnText: Phaser.GameObjects.Text
     keywords: Button[]
     coordinates: Button[][]
+    mode: string
+
     lastGuess: Phaser.GameObjects.Container
     powerups: PowerUps
-    
+
     constructor() {
         super("guess");
     }
@@ -28,11 +30,12 @@ export class GuessScene extends Phaser.Scene {
             gameObject.power()
             this.powerups.updateHeading()
         }
-        }
-        if (gameObject.text == "submit") {
-            this.submit()
+        if (gameObject instanceof Phaser.GameObjects.Text){
+          if (gameObject.text == "submit")
+              this.submit()
         }
     }
+}
 
     // when a keyword is clicked, that keyword is appended to the list of current guesses
     //  if the keyword is part of the guess, it is removed from the list
@@ -55,7 +58,6 @@ export class GuessScene extends Phaser.Scene {
     //  and then the turn is switched to the opponent and the current guess is cleared
     // Created Eddie Levin
     submit() {
-
         if (players.otherPlayer.guessPassword(this.currentPassword)) {
             this.userText.setColor("Green")
             this.currentPassword = []
@@ -86,7 +88,7 @@ export class GuessScene extends Phaser.Scene {
 
         this.input.on('gameobjectdown', this.handleInteract, this)
 
-        this.powerups = new PowerUps(this, 300,10)
+        this.powerups = new PowerUps(this, 550,10)
 
     }
 
@@ -95,8 +97,13 @@ export class GuessScene extends Phaser.Scene {
 
     // Converts the charactersheet data into buttons
     // Created by Braxton Madara
+
     formKeywords(){
-        var words = players.otherPlayer.getKeywords()
+        var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
+        players.activePlayer.setKeywords(sampleSheet.getWords());
+        players.otherPlayer.setKeywords(sampleSheet.getWords());
+
+        var words = players.activePlayer.getKeywords()
         var keywordTiles: Button[] = [] // Return value
         var outerArray = []
         let k = 0 // word count
