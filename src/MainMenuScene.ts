@@ -1,5 +1,6 @@
 import 'phaser'
 import { size } from './app';
+import players from './Player'
 
 export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
 
@@ -13,8 +14,8 @@ export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
 
     preload(){
         this.load.audio('btnPress', 'assets/buttonPress.mp3'); //Loads button press sound
-
     }
+
     create(){
         this.btnPressSound = this.sound.add("btnPress");
         this.cameras.main.setRoundPixels(true); 
@@ -23,8 +24,10 @@ export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
         .setOrigin()
         .setInteractive()
         .setPadding(8)
-        .on('pointerdown', () => (this.scene.start('guess'), this.btnPressSound.play()))
+        .on('pointerdown', () => (this.scene.start('transition'), this.btnPressSound.play()))
         .on('pointerover', () => this.startBtn.setStyle({ color: '#66ff00'}))
         .on('pointerout', () => this.startBtn.setStyle({ color: '#000000' }) );
+
+        players.resetPlayers()
     }
 }
