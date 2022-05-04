@@ -1,5 +1,5 @@
 import 'phaser'
-import { size } from './app';
+import { size, musicConfig } from './app';
 import players from './Player'
 
 export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
@@ -14,9 +14,6 @@ export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
     }
 
     preload(){
-        this.load.audio('btnPress', 'assets/buttonPress.mp3'); //Loads button press sound
-        this.load.audio('music', 'assets/music.mp3'); // Loads background music
-
     }
 
     create(){
@@ -35,15 +32,7 @@ export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
 
         players.resetPlayers()
 
-        const musicConfig = {
-            mute: false,
-            volume: 0.2,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-          }
-          this.music.play(musicConfig);
+        this.game.sound.stopAll();
+        this.music.play(musicConfig);
     }
 }

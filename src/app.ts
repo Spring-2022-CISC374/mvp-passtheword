@@ -19,6 +19,16 @@ const config : GameConfig= {
     }
 }
 
+export const musicConfig = {
+  mute: false,
+  volume: 0.2,
+  rate: 1,
+  detune: 0,
+  seek: 0,
+  loop: true,
+  delay: 0
+}
+
 export const gameSettings = {
     playerSpeed : 100,
     enemySpeed : 40,
