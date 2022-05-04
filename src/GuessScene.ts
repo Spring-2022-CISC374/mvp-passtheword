@@ -17,18 +17,13 @@ export class GuessScene extends Phaser.Scene {
         super("guess");
     }
 
-    // calls appendGuess with the text on the button if one is pressed
-    handleButtonClick(pointer: Phaser.Input.Pointer, gameObject: Button){
-        if (gameObject.type != "Button") { return }
-        if (this.keywords.includes(gameObject)) {
-            this.appendGuess(gameObject.text)
-        }
-    }
-
     // calls submit function if the submit text object is clicked
     // Created by Eddie Levin
-    handleSubmit(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
-        if (gameObject.type != "Text") { return }
+    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
+        if(!(gameObject instanceof Phaser.GameObjects.Text || gameObject instanceof Button)){return}
+        if(gameObject instanceof Button){
+            this.appendGuess(gameObject.text)
+        }
         if (gameObject.text == "submit") {
             this.submit()
         }
@@ -42,9 +37,9 @@ export class GuessScene extends Phaser.Scene {
             this.currentPassword.splice(this.currentPassword.indexOf(keyword.text), 1)
             keyword.setColor("White")
         }
-        else {
+        else if(this.currentPassword.length != 4){
             this.currentPassword.push(keyword.text)
-            keyword.setColor("Gray")
+            keyword.setColor("Black")
         }
         if (this.mode == "Create") {
             this.userText.setText("Create Your Password: " + this.currentPassword.toString().replace(/,/g,''))
@@ -115,7 +110,7 @@ export class GuessScene extends Phaser.Scene {
 
         // TODO: Make an input screen for chractersheet info.
 
-        this.input.on('gameobjectdown', this.handleButtonClick, this)
+        this.input.on('gameobjectdown', this.handleInteract, this)
     }
 
     update() {
@@ -153,9 +148,6 @@ export class GuessScene extends Phaser.Scene {
         keywordTiles.forEach((button) => {
             this.add.existing(button)
             button.setInteractive()
-                .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                    this.handleButtonClick
-                }, this)
         })
 
         return keywordTiles;
