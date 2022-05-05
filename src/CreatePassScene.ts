@@ -1,11 +1,13 @@
 import 'phaser'
 import players from './Player';
 import { CharacterSheet } from './characterSheet';
+import { Button } from './keywordTile';
 
 export class CreatePassScene extends Phaser.Scene {
     enterPasswordText: string[] = []
     currentPassword: string[] = []
-    keywords: Phaser.GameObjects.Text[]
+    keywords: Button[]
+    coordinates: Button[][]
     userText: Phaser.GameObjects.Text
     turnText: Phaser.GameObjects.Text
 
@@ -15,13 +17,13 @@ export class CreatePassScene extends Phaser.Scene {
 
     // calls diferent functions depending on what kind of object is clicked 
     // Created by Eddie Levin
-    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.Text) {
-        if (gameObject.type != "Text") { return }
-        if (this.keywords.includes(gameObject)) {
-            this.appendGuess(gameObject)
+    handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
+        if(gameObject instanceof Button){
+            this.appendGuess(gameObject.text)
         }
-        if (gameObject.text == "submit") {
-            this.submit()
+        if (gameObject instanceof Phaser.GameObjects.Text){
+            if(gameObject.text == "submit")
+                this.submit()
         }
     }
 
@@ -39,7 +41,6 @@ export class CreatePassScene extends Phaser.Scene {
         }
     }
 
-
     // when a keyword is clicked, that keyword is appended to the list of current guesses
     //  if the keyword is part of the guess, it is removed from the list
     // Created by Eddie Levin
@@ -50,7 +51,7 @@ export class CreatePassScene extends Phaser.Scene {
         }
         else if(this.currentPassword.length <= 4){
             this.currentPassword.push(keyword.text)
-            keyword.setColor("Gray")
+            keyword.setColor("Black")
         }
 
         this.userText.setText("Create Your Password: " + this.currentPassword.toString().replace(/,/g,''))
@@ -78,7 +79,7 @@ export class CreatePassScene extends Phaser.Scene {
 
     }
 
-    // Converts the charactersheet data into keywords
+    // Converts the charactersheet data into buttons
     // Created by Braxton Madara
     formKeywords(){
         var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
@@ -86,20 +87,33 @@ export class CreatePassScene extends Phaser.Scene {
         players.otherPlayer.setKeywords(sampleSheet.getWords());
 
         var words = players.activePlayer.getKeywords()
-        var keywords = [];
-        var widthIncrement = 10;
-        var heightIncrement = 30;
-        
-        for (let i = 0; i<words.length; i++) {
-            if(heightIncrement%150 == 0){
-                widthIncrement = widthIncrement + 100;
-                heightIncrement += 30;
+        var keywordTiles: Button[] = [] // Return value
+        var outerArray = []
+        let k = 0 // word count
+
+        for(let i = 55; i<462; i+=100){ // iterates along the width of the screen
+            if(words[k]) // If there are still words left make another innerArray
+                var innerArray = []
+            for(let j = 60; j<180; j+=45){ // iterates along the height given
+                if(!words[k])
+                    break // Stops creating buttons if we are out of words
+                var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
+                innerArray.push(button)
+                keywordTiles.push(button)
+                k++
             }
-            let newKeyword = this.add.text(widthIncrement%(256*5), heightIncrement%150, words[i]).setInteractive();
-            keywords.push(newKeyword);
-            heightIncrement += 20;
+            outerArray.push(innerArray)
         }
-        return keywords;
+        
+        this.coordinates = outerArray
+
+        // Makes each button appear and call handleButtonClick when pressed
+        keywordTiles.forEach((button) => {
+            this.add.existing(button)
+            button.setInteractive()
+        })
+
+        return keywordTiles;
     }
     
 }
