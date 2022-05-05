@@ -11,9 +11,9 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.heading = this.scene.add.text(0,0,"You have " + players.activePlayer.charges + " charges")
         this.add(this.heading)
         // Add Additional PowerUps Here
-        this.add(new PowerUp(this.scene,20,"Show First Keyword", 3, this.showFirstKeyword))
-        this.add(new PowerUp(this.scene,40,"Remove Wrong Answer", 2, this.removeWrongAnswer))
-        this.add(new PowerUp(this.scene,60,"Show Password Length", 2, this.showPasswordLength))
+        this.add(new PowerUp(this.scene,20,"Show First Keyword", 2, this.showFirstKeyword))
+        this.add(new PowerUp(this.scene,40,"Remove Wrong Answer", 1, this.removeWrongAnswer))
+        this.add(new PowerUp(this.scene,60,"Show Password Length", 1, this.showPasswordLength))
 
         this.scene.add.existing(this)
     }

@@ -162,9 +162,9 @@ export class GuessScene extends Phaser.Scene {
         for(var i=0; i < this.currentPassword.length; i++){
             var color = ""
             color = "Red" 
-            if (players.getOtherPassword().includes(guess[i])){ color = "Yellow" }
-            if(i < players.getOtherPassword().length){
-                if(guess[i] == players.getOtherPassword()[i]){ color = "Green" }
+            if (players.otherPlayer.password.includes(guess[i])){ color = "Yellow" }
+            if(i < players.otherPlayer.password.length){
+                if(guess[i] == players.otherPlayer.password[i]){ color = "Green" }
             }
             colors.push([this.currentPassword[i],color])
         }
