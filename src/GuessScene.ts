@@ -36,8 +36,13 @@ export class GuessScene extends Phaser.Scene {
         }
         // refreshes keyword colors
         this.keywords.forEach(element => {
-            this.appendGuess(element.text)
-            this.appendGuess(element.text)
+            let kw = element.text
+            let color = "White"
+            if(players.activePlayer.colorMap[kw.text]){
+                color = players.activePlayer.colorMap[kw.text]
+            }
+            if(this.currentPassword.includes(kw.text)){color = "Black"}
+            kw.setColor(color)
         });
     }
 
@@ -48,18 +53,11 @@ export class GuessScene extends Phaser.Scene {
     appendGuess(keyword: Phaser.GameObjects.Text) {
         if (this.currentPassword.includes(keyword.text)) {
             this.currentPassword.splice(this.currentPassword.indexOf(keyword.text), 1)
-            let color = "White"
-            if(players.activePlayer.colorMap[keyword.text]){
-                color = players.activePlayer.colorMap[keyword.text]
-            }
-            keyword.setColor(color)
         }
         else if(this.currentPassword.length <= 4){
             this.currentPassword.push(keyword.text)
-            keyword.setColor("Black")
         }
         this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''))
-        this.userText.setColor("White")
     }
 
 
