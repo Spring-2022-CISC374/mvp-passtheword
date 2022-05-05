@@ -53,6 +53,12 @@ export class PowerUp extends Phaser.GameObjects.Text{
             }
         }
         this.setInteractive()
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+            this.setBackgroundColor("#444444")
+        })
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+            this.setBackgroundColor("grey")
+        })
         this.scene.add.existing(this)
         
     }
