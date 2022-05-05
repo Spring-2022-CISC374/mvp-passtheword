@@ -34,7 +34,13 @@ export class GuessScene extends Phaser.Scene {
           if (gameObject.text == "submit")
               this.submit()
         }
-}
+        // refreshes keyword colors
+        this.keywords.forEach(element => {
+            this.appendGuess(element.text)
+            this.appendGuess(element.text)
+        });
+    }
+
 
     // when a keyword is clicked, that keyword is appended to the list of current guesses
     //  if the keyword is part of the guess, it is removed from the list
