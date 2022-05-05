@@ -7,6 +7,7 @@ class Player {
     password: string[] = []
     history: [string,string][][] = []
     charges = 10
+    colorMap = {}
 
     getKeywords() {
         return this.keywords
@@ -29,6 +30,12 @@ class Player {
     }
     appendToHistory(input: [string,string][]){
         this.history.push(input)
+        input.forEach(
+            function(value){
+                if(this.colorMap[value[0]] == "Green"){return}
+                this.colorMap[value[0]] = value[1]
+            }.bind(this)
+        )
     }
     getHistory(){
         return this.history

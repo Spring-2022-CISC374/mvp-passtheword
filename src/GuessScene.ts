@@ -23,7 +23,6 @@ export class GuessScene extends Phaser.Scene {
     // calls submit function if the submit text object is clicked
     // Created by Eddie Levin
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
-        if(!(gameObject instanceof Phaser.GameObjects.Text || gameObject instanceof Button)){return}
         if(gameObject instanceof Button){
             this.appendGuess(gameObject.text)
         if (gameObject instanceof PowerUp){
@@ -43,7 +42,11 @@ export class GuessScene extends Phaser.Scene {
     appendGuess(keyword: Phaser.GameObjects.Text) {
         if (this.currentPassword.includes(keyword.text)) {
             this.currentPassword.splice(this.currentPassword.indexOf(keyword.text), 1)
-            keyword.setColor("White")
+            let color = "White"
+            if(players.activePlayer.colorMap[keyword.text]){
+                color = players.activePlayer.colorMap[keyword.text]
+            }
+            keyword.setColor(color)
         }
         else if(this.currentPassword.length <= 4){
             this.currentPassword.push(keyword.text)
@@ -99,23 +102,29 @@ export class GuessScene extends Phaser.Scene {
     // Created by Braxton Madara
 
     formKeywords(){
-        var words = players.otherPlayer.getKeywords()
+        var words = players.activePlayer.getKeywords()
         var keywordTiles: Button[] = [] // Return value
         var outerArray = []
         let k = 0 // word count
-
         for(let i = 55; i<462; i+=100){ // iterates along the width of the screen
             if(words[k]) // If there are still words left make another innerArray
                 var innerArray = []
             for(let j = 60; j<180; j+=45){ // iterates along the height given
                 if(!words[k])
                     break // Stops creating buttons if we are out of words
+                let color = "white"
+                if(players.activePlayer.colorMap[words[k]]){
+                    color = players.activePlayer.colorMap[words[k]]
+                }
                 var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
+                button.text.setColor(color)
                 innerArray.push(button)
                 keywordTiles.push(button)
                 k++
             }
             outerArray.push(innerArray)
+
+
         }
         
         this.coordinates = outerArray
