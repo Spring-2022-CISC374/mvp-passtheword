@@ -1,7 +1,7 @@
 import 'phaser'
 import { CharacterSheet } from './characterSheet'
-import players from './Player'
 import { Button } from './keywordTile'
+import players from './Player'
 import { PowerUp, PowerUps } from './PowerUps'
 
 export class GuessScene extends Phaser.Scene {
@@ -25,13 +25,12 @@ export class GuessScene extends Phaser.Scene {
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
         if(gameObject instanceof Button){
             this.appendGuess(gameObject.text)
-        }
         if (gameObject instanceof PowerUp){
             gameObject.power()
             this.powerups.updateHeading()
         }
         if (gameObject instanceof Phaser.GameObjects.Text){
-          if (gameObject.text == "submit") {
+          if (gameObject.text == "submit")
               this.submit()
         }
     }
@@ -49,7 +48,7 @@ export class GuessScene extends Phaser.Scene {
             }
             keyword.setColor(color)
         }
-        else if(this.currentPassword.length < 5){
+        else if(this.currentPassword.length <= 4){
             this.currentPassword.push(keyword.text)
             keyword.setColor("Black")
         }
@@ -84,7 +83,6 @@ export class GuessScene extends Phaser.Scene {
         this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn").setFontSize(12)
         this.add.text(10, 230, "submit").setInteractive()
         this.setLastGuessText()
-
 
         // Keyword Formation created by Braxton Madara
         this.keywords = this.formKeywords();
@@ -123,7 +121,6 @@ export class GuessScene extends Phaser.Scene {
                 innerArray.push(button)
                 keywordTiles.push(button)
                 k++
-
             }
             outerArray.push(innerArray)
 
