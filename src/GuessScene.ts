@@ -25,6 +25,7 @@ export class GuessScene extends Phaser.Scene {
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
         if(gameObject instanceof Button){
             this.appendGuess(gameObject.text)
+        }
         if (gameObject instanceof PowerUp){
             gameObject.power()
             this.powerups.updateHeading()
@@ -33,7 +34,6 @@ export class GuessScene extends Phaser.Scene {
           if (gameObject.text == "submit")
               this.submit()
         }
-    }
 }
 
     // when a keyword is clicked, that keyword is appended to the list of current guesses
