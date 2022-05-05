@@ -112,14 +112,18 @@ export class GuessScene extends Phaser.Scene {
         var keywordTiles: Button[] = [] // Return value
         var outerArray = []
         let k = 0 // word count
-
         for(let i = 55; i<462; i+=100){ // iterates along the width of the screen
             if(words[k]) // If there are still words left make another innerArray
                 var innerArray = []
             for(let j = 60; j<180; j+=45){ // iterates along the height given
                 if(!words[k])
                     break // Stops creating buttons if we are out of words
+                let color = "white"
+                if(players.activePlayer.colorMap[words[k]]){
+                    color = players.activePlayer.colorMap[words[k]]
+                }
                 var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
+                button.text.setColor(color)
                 innerArray.push(button)
                 keywordTiles.push(button)
                 k++
@@ -127,10 +131,7 @@ export class GuessScene extends Phaser.Scene {
             }
             outerArray.push(innerArray)
 
-            let color = "white"
-            if(players.activePlayer.colorMap[words[i]]){
-                color = players.activePlayer.colorMap[words[i]]
-            }
+
         }
         
         this.coordinates = outerArray
