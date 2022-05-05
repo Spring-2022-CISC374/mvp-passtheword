@@ -60,10 +60,10 @@ class Players {
     }
 
     getActivePassword(): string{
-        return this.activePlayer.password.join()
+        return this.activePlayer.password.join('');
     }
     getOtherPassword(): string{
-        return this.activePlayer.password.join()
+        return this.activePlayer.password.join('')
     }
 
     getActiveID() {

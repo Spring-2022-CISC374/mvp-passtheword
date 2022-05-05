@@ -14,7 +14,6 @@ export class TransitionScene extends Phaser.Scene { //File created by Jason
 
     create() {
         let state = players.findState();
-        console.log(state)
 
         this.cameras.main.setRoundPixels(true);
         this.displayMessage(state);

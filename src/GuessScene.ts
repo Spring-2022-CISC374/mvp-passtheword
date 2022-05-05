@@ -83,7 +83,6 @@ export class GuessScene extends Phaser.Scene {
 
     create() {
         this.cameras.main.setRoundPixels(true); 
-        console.log(this.currentPassword)
         // WARNING: if the text in the submit button is changed, handleInteract must also be changed
         this.userText = this.add.text(10, 180, "Guess: " + this.currentPassword.toString())
         this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn").setFontSize(12)
