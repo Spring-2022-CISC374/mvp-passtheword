@@ -81,9 +81,11 @@ export class CreatePassScene extends Phaser.Scene {
     // Converts the charactersheet data into keywords
     // Created by Braxton Madara
     formKeywords(){
-        var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
-        players.activePlayer.setKeywords(sampleSheet.getWords());
-        players.otherPlayer.setKeywords(sampleSheet.getWords());
+        if (!players.activePlayer.keywords) {
+            var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
+            players.activePlayer.setKeywords(sampleSheet.getWords());
+            players.otherPlayer.setKeywords(sampleSheet.getWords());
+        }
 
         var words = players.activePlayer.getKeywords()
         var keywords = [];

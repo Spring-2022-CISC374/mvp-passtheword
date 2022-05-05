@@ -6,6 +6,7 @@ class Player {
     keywords: string[]
     password: string[] = []
     history: [string,string][][] = []
+    turn = 0
     charges = 0
 
     getKeywords() {
@@ -49,14 +50,13 @@ class Players {
     resetPlayers() {
         this.activePlayer = new Player(1);
         this.otherPlayer = new Player(2);
-        this.round = -1
     }
 
-    getActivePassword() {
-        return this.activePlayer.password
+    getActivePassword(): string{
+        return this.activePlayer.password.join()
     }
-    getOtherPassword() {
-        return this.otherPlayer.password
+    getOtherPassword(): string{
+        return this.activePlayer.password.join()
     }
 
     getActiveID() {
@@ -80,18 +80,20 @@ class Players {
     }
 
     switchTurn(): number{
+        this.activePlayer.turn += 1
         let tempPlayer = this.otherPlayer
         this.otherPlayer = this.activePlayer
         this.activePlayer = tempPlayer
-        this.round += 1
         return this.activePlayer.id
     }
 
     findState(): string{
-        if (this.round < 1) {
+        if (this.activePlayer.turn < 1) {
             return "Create"
-        } else if (this.round == 1) {
+        } else if (this.activePlayer.turn == 1 && this.activePlayer.id == 1) {
             return "Swap"
+        } else if (this.activePlayer.turn % 3 == 0 && this.activePlayer.turn != 0) {
+            return "Chance"
         } else {
             return "Guess"
         }

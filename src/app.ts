@@ -6,13 +6,23 @@ import {MainMenuScene} from './MainMenuScene'
 import {CreatePassScene} from './CreatePassScene'
 import {EndScene} from './EndScene'
 import {TransitionScene} from './TransitionScene'
+import {ChargeScreen} from './ChargeScreen'
 
 export const size = {x: 256*2, y: 272}
 const config : GameConfig= {
     width: size.x,
     height: size.y,
     backgroundColor: 0x000000,
-    scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, TransitionScene, EndScene],
+    parent: 'game',
+    dom: {
+      createContainer: true
+    },
+    callbacks: {
+      postBoot: function (game) {
+        game.domContainer.style.pointerEvents = 'none';
+      },
+    },
+    scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, TransitionScene, EndScene, ChargeScreen],
     physics: {
         default: "arcade",
         arcade: {debug:false}

@@ -8,6 +8,7 @@ export class BootScene extends Phaser.Scene { //Most scenes were made by Kyle Ko
     preload(){
         this.load.audio('btnPress', 'assets/buttonPress.mp3'); //Loads button press sound
         this.load.audio('music', 'assets/music.mp3'); // Loads background music
+        this.load.html('form', 'assets/input.html'); // Loads in HTML user input
     }
     
     create() {
