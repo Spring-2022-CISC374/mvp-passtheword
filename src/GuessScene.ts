@@ -40,7 +40,7 @@ export class GuessScene extends Phaser.Scene {
             this.appendGuess(element.text)
         });
     }
-}
+
 
     // when a keyword is clicked, that keyword is appended to the list of current guesses
     //  if the keyword is part of the guess, it is removed from the list
