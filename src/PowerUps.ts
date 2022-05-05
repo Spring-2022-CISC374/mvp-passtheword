@@ -11,9 +11,9 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.heading = this.scene.add.text(0,0,"You have " + players.activePlayer.charges + " charges")
         this.add(this.heading)
         // Add Additional PowerUps Here
-        this.add(new PowerUp(this.scene,20,"Log Message", 3, function() {console.log("testing 123");}))
-        this.add(new PowerUp(this.scene,40,"Do Nothing", 1, function() {}))
-        this.add(new PowerUp(this.scene,60,"Show First Keyword", 1, this.showFirstKeyword))
+        this.add(new PowerUp(this.scene,20,"Log Message", 1, function() {console.log("testing 123");}))
+        this.add(new PowerUp(this.scene,40,"Show First Keyword", 2, this.showFirstKeyword))
+        this.add(new PowerUp(this.scene,40,"Remove Wrong Answer", 2, this.showFirstKeyword))
 
         this.scene.add.existing(this)
     }
@@ -24,6 +24,13 @@ export class PowerUps extends Phaser.GameObjects.Container{
     }
     showFirstKeyword(){
         players.activePlayer.appendToHistory([[players.getOtherPassword()[0], "green"]])
+    }
+    removeWrongAnswer(){
+        let filteredArray = players.otherPlayer.getKeywords().filter(value => !players.getOtherPassword().includes(value));
+        filteredArray = filteredArray.filter(value => !players.activePlayer.colorMap[value]);
+        if(filteredArray.length > 0){
+            players.activePlayer.appendToHistory([[filteredArray[0], "Red"]])
+        }
     }
 
 }
