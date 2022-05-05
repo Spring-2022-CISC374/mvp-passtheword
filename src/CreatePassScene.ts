@@ -84,7 +84,6 @@ export class CreatePassScene extends Phaser.Scene {
     formKeywords(){
         var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
         players.activePlayer.setKeywords(sampleSheet.getWords());
-        players.otherPlayer.setKeywords(sampleSheet.getWords());
 
         var words = players.activePlayer.getKeywords()
         var keywordTiles: Button[] = [] // Return value

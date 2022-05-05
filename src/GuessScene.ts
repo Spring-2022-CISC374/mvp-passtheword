@@ -106,7 +106,7 @@ export class GuessScene extends Phaser.Scene {
     // Created by Braxton Madara
 
     formKeywords(){
-        var words = players.activePlayer.getKeywords()
+        var words = players.otherPlayer.getKeywords()
         var keywordTiles: Button[] = [] // Return value
         var outerArray = []
         let k = 0 // word count
