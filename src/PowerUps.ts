@@ -13,7 +13,7 @@ export class PowerUps extends Phaser.GameObjects.Container{
         // Add Additional PowerUps Here
         this.add(new PowerUp(this.scene,20,"Show First Keyword", 3, this.showFirstKeyword))
         this.add(new PowerUp(this.scene,40,"Remove Wrong Answer", 2, this.removeWrongAnswer))
-        this.add(new PowerUp(this.scene,60,"Show Password Length", 2, this.showPasswordLength.bind(this)))
+        this.add(new PowerUp(this.scene,60,"Show Password Length", 2, this.showPasswordLength))
 
         this.scene.add.existing(this)
     }
@@ -22,20 +22,20 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.heading = this.scene.add.text(0,0,"You have " + players.activePlayer.charges + " charges")
         this.add(this.heading)
     }
-    private showFirstKeyword(){
+    private showFirstKeyword: ()=>void = function(){
         players.activePlayer.appendToHistory([[players.getOtherPassword()[0], "green"]])
     }
-    private removeWrongAnswer(){
-        let filteredArray = players.activePlayer.getKeywords().filter(value => !players.getOtherPassword().includes(value));
+    private removeWrongAnswer: ()=>void = function(){
+        let filteredArray = players.otherPlayer.getKeywords().filter(value => !players.getOtherPassword().includes(value));
         filteredArray = filteredArray.filter(value => !players.activePlayer.colorMap[value]);
         if(filteredArray.length > 0){
             let randomIndex = Math.floor(Math.random() * filteredArray.length);
             players.activePlayer.appendToHistory([[filteredArray[randomIndex], "Red"]])
         }
     }
-    private showPasswordLength(){
+    private showPasswordLength: ()=>void = function(){
         this.add(this.scene.add.text(0,80,"Password has " + players.otherPlayer.password.length + " keywords"))
-    }
+    }.bind(this)
 
 }
 export class PowerUp extends Phaser.GameObjects.Text{
@@ -53,6 +53,12 @@ export class PowerUp extends Phaser.GameObjects.Text{
             }
         }
         this.setInteractive()
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+            this.setBackgroundColor("#444444")
+        })
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+            this.setBackgroundColor("grey")
+        })
         this.scene.add.existing(this)
         
     }

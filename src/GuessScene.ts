@@ -24,20 +24,27 @@ export class GuessScene extends Phaser.Scene {
     // Created by Eddie Levin
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
         if(gameObject instanceof Button){
-            this.appendGuess(gameObject.text)
+            if (gameObject.text.text == "Submit"){
+                this.submit()
+            }
+            else {this.appendGuess(gameObject.text)}
         }
         if (gameObject instanceof PowerUp){
             gameObject.power()
             this.powerups.updateHeading()
         }
         if (gameObject instanceof Phaser.GameObjects.Text){
-          if (gameObject.text == "submit")
-              this.submit()
+
         }
         // refreshes keyword colors
         this.keywords.forEach(element => {
-            this.appendGuess(element.text)
-            this.appendGuess(element.text)
+            let kw = element.text
+            let color = "White"
+            if(players.activePlayer.colorMap[kw.text]){
+                color = players.activePlayer.colorMap[kw.text]
+            }
+            if(this.currentPassword.includes(kw.text)){color = "Black"}
+            kw.setColor(color)
         });
     }
 
@@ -48,18 +55,11 @@ export class GuessScene extends Phaser.Scene {
     appendGuess(keyword: Phaser.GameObjects.Text) {
         if (this.currentPassword.includes(keyword.text)) {
             this.currentPassword.splice(this.currentPassword.indexOf(keyword.text), 1)
-            let color = "White"
-            if(players.activePlayer.colorMap[keyword.text]){
-                color = players.activePlayer.colorMap[keyword.text]
-            }
-            keyword.setColor(color)
         }
         else if(this.currentPassword.length <= 4){
             this.currentPassword.push(keyword.text)
-            keyword.setColor("Black")
         }
         this.userText.setText("Guess: " + this.currentPassword.toString().replace(/,/g,''))
-        this.userText.setColor("White")
     }
 
 
@@ -87,7 +87,7 @@ export class GuessScene extends Phaser.Scene {
         // WARNING: if the text in the submit button is changed, handleInteract must also be changed
         this.userText = this.add.text(10, 180, "Guess: " + this.currentPassword.toString())
         this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn").setFontSize(12)
-        this.add.text(10, 230, "submit").setInteractive()
+        this.add.existing(new Button(this,55,230, 'upTexture', 'overTexture', 'downTexture',"Submit").setInteractive())
         this.setLastGuessText()
 
         // Keyword Formation created by Braxton Madara
@@ -108,7 +108,7 @@ export class GuessScene extends Phaser.Scene {
     // Created by Braxton Madara
 
     formKeywords(){
-        var words = players.activePlayer.getKeywords()
+        var words = players.otherPlayer.getKeywords()
         var keywordTiles: Button[] = [] // Return value
         var outerArray = []
         let k = 0 // word count
