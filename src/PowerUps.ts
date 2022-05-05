@@ -26,7 +26,7 @@ export class PowerUps extends Phaser.GameObjects.Container{
         players.activePlayer.appendToHistory([[players.getOtherPassword()[0], "green"]])
     }
     private removeWrongAnswer(){
-        let filteredArray = players.activePlayer.getKeywords().filter(value => !players.getOtherPassword().includes(value));
+        let filteredArray = players.otherPlayer.getKeywords().filter(value => !players.getOtherPassword().includes(value));
         filteredArray = filteredArray.filter(value => !players.activePlayer.colorMap[value]);
         if(filteredArray.length > 0){
             let randomIndex = Math.floor(Math.random() * filteredArray.length);
