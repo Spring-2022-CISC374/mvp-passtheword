@@ -18,12 +18,12 @@ export class CreatePassScene extends Phaser.Scene {
     // calls diferent functions depending on what kind of object is clicked 
     // Created by Eddie Levin
     handleInteract(pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) {
-        if(!(gameObject instanceof Phaser.GameObjects.Text || gameObject instanceof Button)){return}
         if(gameObject instanceof Button){
             this.appendGuess(gameObject.text)
         }
-        if (gameObject.text == "submit") {
-            this.submit()
+        if (gameObject instanceof Phaser.GameObjects.Text){
+            if(gameObject.text == "submit")
+                this.submit()
         }
     }
 
