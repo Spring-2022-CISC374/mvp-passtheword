@@ -16,7 +16,7 @@ export class CharacterSheet {
 
     getWords(){
         var sheetWords: string[] = [this.firstName, this.lastName, this.birthday].concat(this.likes).concat(this.misc);
-        var basicWords: string[] = ["sword", "king", "bungie", "420", "69", "!", "@", "0", "?", "$", "#","&"];
+        var basicWords: string[] = ["sword", "king", "bungie", "123", "99", "!", "@", "0", "?", "$", "#","&"];
         var totalWords: string[] = sheetWords.concat(basicWords);
         
         function shuffle(array) { // Fisher-Yates (aka Knuth) Shuffle: (https://en.wikipedia.org/wiki/Fisher–Yates_shuffle)
