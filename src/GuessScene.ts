@@ -86,7 +86,7 @@ export class GuessScene extends Phaser.Scene {
         // WARNING: if the text in the submit button is changed, handleInteract must also be changed
         this.userText = this.add.text(10, 180, "Guess: " + this.currentPassword.toString())
         this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn").setFontSize(12)
-        this.add.existing(new Button(this,55,230, 'upTexture', 'overTexture', 'downTexture',"Submit").setInteractive())
+        this.add.existing(new Button(this,55,230, players.activePlayer.buttons,"Submit").setInteractive())
         this.setLastGuessText()
 
         // Keyword Formation created by Braxton Madara
@@ -121,7 +121,7 @@ export class GuessScene extends Phaser.Scene {
                 if(players.activePlayer.colorMap[words[k]]){
                     color = players.activePlayer.colorMap[words[k]]
                 }
-                var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
+                var button = new Button(this, i, j, players.activePlayer.buttons, words[k])
                 button.text.setColor(color)
                 innerArray.push(button)
                 keywordTiles.push(button)
