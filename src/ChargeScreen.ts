@@ -1,6 +1,7 @@
 import 'phaser'
 import players from './Player';
 import { size } from './app';
+import { Button } from './keywordTile';
 
 export class ChargeScreen extends Phaser.Scene { //File created by Jason
 
@@ -30,6 +31,9 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
                 this.handleSubmit(password.value);
             }
         });
+
+        this.add.existing(new Button(this,size.x * 3/4, size.y * 3/4, players.activePlayer.buttons,"Skip")).setInteractive()
+        this.input.on('gameobjectdown', function(){this.scene.start('guess')}.bind(this), this)
       
     }
 
