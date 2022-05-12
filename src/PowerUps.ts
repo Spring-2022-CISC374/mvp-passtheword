@@ -8,18 +8,21 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.scene = scene
         this.x = x
         this.y = y
-        this.heading = this.scene.add.text(0,0,"You have " + players.activePlayer.charges + " charges")
+        this.add(this.scene.add.rectangle(0,0,240,200,0x282c34).setOrigin(0,0))
+        this.add(this.scene.add.text(0,0,"Power Ups",{fontSize: "20px"}))
+        this.heading = this.scene.add.text(0,30,"You have $" + players.activePlayer.charges)
         this.add(this.heading)
         // Add Additional PowerUps Here
-        this.add(new PowerUp(this.scene,20,"Show First Keyword", 2, this.showFirstKeyword))
-        this.add(new PowerUp(this.scene,40,"Remove Wrong Answer", 1, this.removeWrongAnswer))
-        this.add(new PowerUp(this.scene,60,"Show Password Length", 1, this.showPasswordLength))
+        this.add(new PowerUp(this.scene,50,"Show First Keyword", 2, this.showFirstKeyword))
+        this.add(new PowerUp(this.scene,70,"Remove Wrong Answer", 1, this.removeWrongAnswer))
+        this.add(new PowerUp(this.scene,90,"Show Password Length", 1, this.showPasswordLength))
+        
 
         this.scene.add.existing(this)
     }
     updateHeading() {
         this.remove(this.heading,true)
-        this.heading = this.scene.add.text(0,0,"You have " + players.activePlayer.charges + " charges")
+        this.heading = this.scene.add.text(0,30,"You have $" + players.activePlayer.charges)
         this.add(this.heading)
     }
     private showFirstKeyword: ()=>void = function(){
@@ -34,7 +37,7 @@ export class PowerUps extends Phaser.GameObjects.Container{
         }
     }
     private showPasswordLength: ()=>void = function(){
-        this.add(this.scene.add.text(0,80,"Password has " + players.otherPlayer.password.length + " keywords"))
+        this.add(this.scene.add.text(0,110,"Password has " + players.otherPlayer.password.length + " keywords"))
     }.bind(this)
 
 }
