@@ -23,7 +23,7 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.add(this.heading)
     }
     private showFirstKeyword: ()=>void = function(){
-        players.activePlayer.appendToHistory([[players.getOtherPassword()[0], "green"]])
+        players.activePlayer.appendToHistory([[players.otherPlayer.password[0], "green"]])
     }
     private removeWrongAnswer: ()=>void = function(){
         let filteredArray = players.otherPlayer.getKeywords().filter(value => !players.getOtherPassword().includes(value));
