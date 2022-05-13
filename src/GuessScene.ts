@@ -1,5 +1,4 @@
 import 'phaser'
-import { CharacterSheet } from './characterSheet'
 import { Button } from './keywordTile'
 import players from './Player'
 import { PowerUp, PowerUps } from './PowerUps'

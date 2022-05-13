@@ -3,7 +3,6 @@ class Player {
         this.id = id
         if(id == 2){
             this.buttons = ['upTexture2', 'overTexture2', 'downTexture2']
-            this.charges = 1
         }
     }
     id: number
