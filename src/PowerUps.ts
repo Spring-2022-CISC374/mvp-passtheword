@@ -9,14 +9,14 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.scene = scene
         this.x = x
         this.y = y
-        this.add(this.scene.add.rectangle(0,0,240,200,0x282c34).setOrigin(0,0))
+        this.add(this.scene.add.rectangle(0,0,300,200,0x282c34).setOrigin(0,0))
         this.add(this.scene.add.text(0,0,"Power Ups",textHandler.largeText))
         this.heading = this.scene.add.text(0,30,"You have $" + players.activePlayer.charges,textHandler.mediumText)
         this.add(this.heading)
         // Add Additional PowerUps Here
-        this.add(new PowerUp(this.scene,50,"Show First Keyword", Math.max(1, 4 - discount), this.showFirstKeyword))
-        this.add(new PowerUp(this.scene,70,"Remove Wrong Answer", Math.max(1, 3 - discount), this.removeWrongAnswer))
-        this.add(new PowerUp(this.scene,90,"Show Password Length", Math.max(1, 3 - discount), this.showPasswordLength))
+        this.add(new PowerUp(this.scene,55,"Show First Keyword", Math.max(1, 4 - discount), this.showFirstKeyword))
+        this.add(new PowerUp(this.scene,80,"Remove Wrong Answer", Math.max(1, 3 - discount), this.removeWrongAnswer))
+        this.add(new PowerUp(this.scene,105,"Show Password Length", Math.max(1, 3 - discount), this.showPasswordLength))
 
         this.scene.add.existing(this)
     }
@@ -37,7 +37,7 @@ export class PowerUps extends Phaser.GameObjects.Container{
         }
     }
     private showPasswordLength: ()=>void = function(){
-        this.add(this.scene.add.text(0,110,"Password has " + players.otherPlayer.password.length + " keywords",textHandler.mediumText))
+        this.add(this.scene.add.text(0,130,"Password has " + players.otherPlayer.password.length + " keywords",textHandler.smallText))
     }.bind(this)
 
 }
@@ -55,6 +55,7 @@ export class PowerUp extends Phaser.GameObjects.Text{
                 players.activePlayer.charges-=cost;
             }
         }
+        this.setStyle(textHandler.smallText)
         this.setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
             this.setBackgroundColor("#444444")
