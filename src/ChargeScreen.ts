@@ -42,8 +42,8 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
 
     handleSubmit(password) {
         if (password == players.getActivePassword()) {
-            this.gameTitleText.setText("Success You gained a PowerUP charge!");
-            players.activePlayer.charges += 2
+            this.gameTitleText.setText("Success! Your Power Ups now cost less.");
+            players.activePlayer.discount += 1
         } else {
             this.gameTitleText.setText("Incorrect! That was not your password.");
         }
