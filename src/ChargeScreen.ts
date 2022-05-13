@@ -10,6 +10,7 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
     instructionText: Phaser.GameObjects.Text
     passwordInput: Phaser.GameObjects.DOMElement
     returnKey: Phaser.Input.Keyboard.Key
+    submitButton: Button;
 
     constructor(){
         super("chance");
@@ -33,8 +34,13 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
             }
         });
 
-        this.add.existing(new Button(this,size.x * 3/4, size.y * 3/4, players.activePlayer.buttons,"Skip")).setInteractive()
-        this.input.on('gameobjectdown', function(){this.scene.start('guess')}.bind(this), this)
+        this.submitButton = this.add.existing(new Button(this, size.x * 3 / 4, size.y * 3 / 4, players.activePlayer.buttons, "Submit")).setInteractive()
+        this.input.on('gameobjectdown',
+            function () {
+                let password = (<HTMLInputElement>this.passwordInput.getChildByName("password"))
+                this.handleSubmit(password.value);
+            }
+            , this)
       
     }
 
@@ -49,11 +55,13 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
             this.gameTitleText.setText("Incorrect! That was not your password.");
         }
 
-        this.instructionText.setText("Please click anywhere to continue, Player" + players.getActiveID());
+        this.submitButton.setText("Continue")
+
+        this.instructionText.setText("Please click Continue to continue, Player" + players.getActiveID());
 
         this.returnKey.removeAllListeners("down");
 
-        this.input.on('pointerdown', function (pointer) {
+        this.input.on('gameobjectdown', function (pointer) {
             this.scene.start('guess');
         }, this); // Left Click advances to next scene
 
