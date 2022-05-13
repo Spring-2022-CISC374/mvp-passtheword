@@ -66,8 +66,8 @@ export class CreatePassScene extends Phaser.Scene {
 
         // WARNING: if the text in the submit button is changed, handleInteract must also be changed
         this.userText = this.add.text(10, 180, "Create Your Password: " + this.currentPassword.toString(),textHandler.largeText)
-        this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn",textHandler.largeText)
-        this.add.existing(new Button(this,55,230, 'upTexture', 'overTexture', 'downTexture',"Submit").setInteractive())
+        this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn",textHandler.largeText).setFontSize(12)
+        this.add.existing(new Button(this,55,230, players.activePlayer.buttons,"Submit").setInteractive())
 
         // Keyword Formation created by Braxton Madara
         this.keywords = this.formKeywords();
@@ -96,7 +96,7 @@ export class CreatePassScene extends Phaser.Scene {
             for(let j = 60; j<180; j+=45){ // iterates along the height given
                 if(!words[k])
                     break // Stops creating buttons if we are out of words
-                var button = new Button(this, i, j, 'upTexture', 'overTexture', 'downTexture', words[k])
+                var button = new Button(this, i, j, players.activePlayer.buttons, words[k])
                 innerArray.push(button)
                 keywordTiles.push(button)
                 k++

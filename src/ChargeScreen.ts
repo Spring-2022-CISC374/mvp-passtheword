@@ -2,6 +2,7 @@ import 'phaser'
 import players from './Player';
 import { size } from './app';
 import { textHandler } from './textHandler';
+import { Button } from './keywordTile';
 
 export class ChargeScreen extends Phaser.Scene { //File created by Jason
 
@@ -31,6 +32,9 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
                 this.handleSubmit(password.value);
             }
         });
+
+        this.add.existing(new Button(this,size.x * 3/4, size.y * 3/4, players.activePlayer.buttons,"Skip")).setInteractive()
+        this.input.on('gameobjectdown', function(){this.scene.start('guess')}.bind(this), this)
       
     }
 
@@ -39,8 +43,8 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
 
     handleSubmit(password) {
         if (password == players.getActivePassword()) {
-            this.gameTitleText.setText("Success You gained a PowerUP charge!");
-            players.activePlayer.charges += 2
+            this.gameTitleText.setText("Success! Your Power Ups now cost less.");
+            players.activePlayer.discount += 1
         } else {
             this.gameTitleText.setText("Incorrect! That was not your password.");
         }

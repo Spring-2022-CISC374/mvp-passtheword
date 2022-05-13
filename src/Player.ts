@@ -1,6 +1,10 @@
 class Player {
     constructor(id: number) {
         this.id = id
+        if(id == 2){
+            this.buttons = ['upTexture2', 'overTexture2', 'downTexture2']
+            this.charges = 1
+        }
     }
     id: number
     keywords: string[]
@@ -9,6 +13,8 @@ class Player {
     colorMap = {}
     turn = 0
     charges = 0
+    discount = 0
+    buttons: [string,string,string] = ['upTexture', 'overTexture', 'downTexture']
 
     getKeywords() {
         return this.keywords
@@ -104,6 +110,19 @@ class Players {
         } else {
             return "Guess"
         }
+    }
+
+    appendToHistory(input: [string,string][]){
+        this.activePlayer.history.push(input)
+        input.forEach(
+            function(value){
+                if (!this.activePlayer.colorMap[value[0]]) {
+                    this.otherPlayer.charges += 1
+                }
+                if(this.activePlayer.colorMap[value[0]] == "Green"){return}
+                this.activePlayer.colorMap[value[0]] = value[1]
+            }.bind(this)
+        )
     }
 }
 

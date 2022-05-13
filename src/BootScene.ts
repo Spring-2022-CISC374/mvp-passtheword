@@ -9,6 +9,9 @@ export class BootScene extends Phaser.Scene { //Most scenes were made by Kyle Ko
         this.load.image('upTexture', './assets/icons/buttonTextures/ButtonUp.png')
         this.load.image('overTexture', './assets/icons/buttonTextures/ButtonOver.png')
         this.load.image('downTexture', './assets/icons/buttonTextures/ButtonDown.png')
+        this.load.image('upTexture2', './assets/icons/buttonTextures/ButtonUp2.png')
+        this.load.image('overTexture2', './assets/icons/buttonTextures/ButtonOver2.png')
+        this.load.image('downTexture2', './assets/icons/buttonTextures/ButtonDown2.png')
         this.load.audio('btnPress', 'assets/buttonPress.mp3'); //Loads button press sound
         this.load.audio('music', 'assets/music.mp3'); // Loads background music
         this.load.html('form', 'assets/input.html'); // Loads in HTML user input
