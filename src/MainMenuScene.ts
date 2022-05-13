@@ -26,7 +26,7 @@ export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
         .setOrigin()
         .setInteractive()
         .setPadding(8)
-        .on('pointerdown', () => (this.scene.start('transition'), this.btnPressSound.play()))
+        .on('pointerdown', () => (this.scene.start('tutorial'), this.btnPressSound.play()))
         .on('pointerover', () => this.startBtn.setStyle({ color: '#66ff00'}))
         .on('pointerout', () => this.startBtn.setStyle({ color: '#000000' }) );
 
