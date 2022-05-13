@@ -110,6 +110,19 @@ class Players {
             return "Guess"
         }
     }
+
+    appendToHistory(input: [string,string][]){
+        this.activePlayer.history.push(input)
+        input.forEach(
+            function(value){
+                if (!this.activePlayer.colorMap[value[0]]) {
+                    this.otherPlayer.charges += 1
+                }
+                if(this.activePlayer.colorMap[value[0]] == "Green"){return}
+                this.activePlayer.colorMap[value[0]] = value[1]
+            }.bind(this)
+        )
+    }
 }
 
 let players = new Players();
