@@ -1,6 +1,7 @@
 import 'phaser'
 import players from './Player';
 import { size } from './app';
+import { textHandler } from './textHandler';
 
 export class EndScene extends Phaser.Scene { //File created by Braxton
 
@@ -13,8 +14,8 @@ export class EndScene extends Phaser.Scene { //File created by Braxton
 
     create() {
         this.cameras.main.setRoundPixels(true); 
-        this.gameTitleText['GAME OVER'] = this.add.text(size.x/2,70,"Player "+ players.getActiveID() + " Wins!").setOrigin();
-        this.nextInstructionText['Left Click to Restart'] = this.add.text(size.x/2, 180,"Left Click to Restart").setOrigin();
+        this.gameTitleText['GAME OVER'] = this.add.text(size.x/2,70,"Player "+ players.getActiveID() + " Wins!",textHandler.titleText).setOrigin();
+        this.nextInstructionText['Left Click to Restart'] = this.add.text(size.x/2, 180,"Left Click to Restart",textHandler.mediumText).setOrigin();
 
         this.input.on('pointerdown', function (pointer) {
                 this.scene.start('MainMenu');

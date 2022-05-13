@@ -1,3 +1,5 @@
+import { textHandler } from "./textHandler"
+
 export class Button extends Phaser.GameObjects.Container{
     
     private upImage: Phaser.GameObjects.Image
@@ -12,7 +14,7 @@ export class Button extends Phaser.GameObjects.Container{
         this.upImage = scene.add.image(0, 0, upTexture)
         this.overImage = scene.add.image(0, 0, overTexture)
         this.downImage = scene.add.image(0, 0, downTexture)
-        this.text = scene.add.text(0, 0, text).setOrigin(.5)
+        this.text = scene.add.text(0, 0, text,textHandler.smallText).setOrigin(.5)
 
         this.add(this.upImage)
         this.add(this.overImage)

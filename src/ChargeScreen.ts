@@ -1,6 +1,7 @@
 import 'phaser'
 import players from './Player';
 import { size } from './app';
+import { textHandler } from './textHandler';
 
 export class ChargeScreen extends Phaser.Scene { //File created by Jason
 
@@ -16,8 +17,8 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
     create() {
         this.cameras.main.setRoundPixels(true); 
 
-        this.gameTitleText = this.add.text(size.x/2, size.y/4, "Player " + players.getActiveID() + ", this is your chance!").setOrigin();
-        this.instructionText = this.add.text(size.x/2, size.y/3, "Type in your password:").setOrigin();
+        this.gameTitleText = this.add.text(size.x/2, size.y/4, "Player " + players.getActiveID() + ", this is your chance!",textHandler.titleText).setOrigin();
+        this.instructionText = this.add.text(size.x/2, size.y/3, "Type in your password:",textHandler.mediumText).setOrigin();
         console.log(players.getActivePassword())
 
         this.passwordInput = this.add.dom(size.x/2, size.y * 3/4).createFromCache('form');

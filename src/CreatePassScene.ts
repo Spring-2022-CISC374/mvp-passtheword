@@ -2,6 +2,7 @@ import 'phaser'
 import players from './Player';
 import { CharacterSheet } from './characterSheet';
 import { Button } from './keywordTile';
+import { textHandler } from './textHandler';
 
 export class CreatePassScene extends Phaser.Scene {
     enterPasswordText: string[] = []
@@ -64,8 +65,8 @@ export class CreatePassScene extends Phaser.Scene {
         // Created by Jason He
 
         // WARNING: if the text in the submit button is changed, handleInteract must also be changed
-        this.userText = this.add.text(10, 180, "Create Your Password: " + this.currentPassword.toString())
-        this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn").setFontSize(12)
+        this.userText = this.add.text(10, 180, "Create Your Password: " + this.currentPassword.toString(),textHandler.largeText)
+        this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn",textHandler.largeText)
         this.add.existing(new Button(this,55,230, 'upTexture', 'overTexture', 'downTexture',"Submit").setInteractive())
 
         // Keyword Formation created by Braxton Madara

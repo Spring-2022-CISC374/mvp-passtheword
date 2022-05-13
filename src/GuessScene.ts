@@ -3,6 +3,7 @@ import { CharacterSheet } from './characterSheet'
 import { Button } from './keywordTile'
 import players from './Player'
 import { PowerUp, PowerUps } from './PowerUps'
+import { textHandler } from './textHandler'
 
 export class GuessScene extends Phaser.Scene {
 
@@ -84,8 +85,8 @@ export class GuessScene extends Phaser.Scene {
     create() {
         this.cameras.main.setRoundPixels(true); 
         // WARNING: if the text in the submit button is changed, handleInteract must also be changed
-        this.userText = this.add.text(10, 180, "Guess: " + this.currentPassword.toString())
-        this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn").setFontSize(12)
+        this.userText = this.add.text(10, 180, "Guess: " + this.currentPassword.toString(),textHandler.largeText)
+        this.turnText = this.add.text(150, 10, "Player " + players.getActiveID() + "'s Turn",textHandler.largeText)
         this.add.existing(new Button(this,55,230, 'upTexture', 'overTexture', 'downTexture',"Submit").setInteractive())
         this.setLastGuessText()
 
@@ -145,14 +146,14 @@ export class GuessScene extends Phaser.Scene {
 
     // Created by Eddie Levin
     setLastGuessText() {
-        this.lastGuess = this.add.container(110, 230 ,this.add.text(0,0,"Last Guess: "))
+        this.lastGuess = this.add.container(110, 230 ,this.add.text(0,0,"Last Guess: ",textHandler.mediumText))
         let position = "Last Guess: ".length
         let guessNum = players.activePlayer.getHistory().length 
         if (guessNum == 0) { return }
         var prevGuess = players.activePlayer.getHistory()[guessNum-1]
         for (let tuple of prevGuess) {
             let word = tuple[0], color = tuple[1]
-            this.lastGuess.add(this.add.text(position*11,0,word).setColor(color))
+            this.lastGuess.add(this.add.text(position*13,0,word,textHandler.smallText).setColor(color))
             position += word.length
         }
     } 
