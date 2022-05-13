@@ -21,8 +21,8 @@ export class MainMenuScene extends Phaser.Scene { // Created by Kyle Kontura
         this.music = this.sound.add("music");
 
         this.cameras.main.setRoundPixels(true); 
-        this.gameTitleText = this.add.text(size.x/2,100, "Pass The Word",{font: '40px Mad Hacker', color: '#66ff00'}).setOrigin();
-        this.startBtn = this.add.text(size.x/2,180,"Start Game", {font: '30px Block Code',color: '#000000', backgroundColor: '#D3D3D3'})
+        this.gameTitleText = this.add.text(size.x/2,100, "Pass The Word",{fontFamily: 'MadHacker', color: '#66ff00', fontSize: "40px"}).setOrigin();
+        this.startBtn = this.add.text(size.x/2,180,"Start Game", {fontFamily: 'BlockCode',color: '#000000',fontSize: "30px", backgroundColor: '#D3D3D3'})
         .setOrigin()
         .setInteractive()
         .setPadding(8)

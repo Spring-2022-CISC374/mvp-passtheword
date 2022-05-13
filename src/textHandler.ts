@@ -1,7 +1,7 @@
 export class textHandler{
-    public static titleText: Phaser.Types.GameObjects.Text.TextStyle = {font: '30px Modern Machine', color: '#ffffff'};
-    public static largeText: Phaser.Types.GameObjects.Text.TextStyle = {font: '18px conthrax', color: '#ffffff'};
-    public static mediumText: Phaser.Types.GameObjects.Text.TextStyle = {font: '16px conthrax', color: '#ffffff'};
-    public static smallText: Phaser.Types.GameObjects.Text.TextStyle = {font: '14px conthrax', color: '#ffffff'};
+    public static titleText: Phaser.Types.GameObjects.Text.TextStyle = {fontFamily: 'ModernMachine', color: '#ffffff', fontSize:"30px"};
+    public static largeText: Phaser.Types.GameObjects.Text.TextStyle = {fontFamily: 'conthrax', color: '#ffffff', fontSize: '18px'};
+    public static mediumText: Phaser.Types.GameObjects.Text.TextStyle = {fontFamily: 'conthrax', color: '#ffffff', fontSize: "16px"};
+    public static smallText: Phaser.Types.GameObjects.Text.TextStyle = {fontFamily: 'conthrax', color: '#ffffff', fontSize: "14px"};
 
 }
