@@ -1,8 +1,29 @@
 <html>
 	<head>
-		<title>Phaser Game</title>
-		<link rel="preload" as="font" href="assets/Mad Hacker.ttf" type="font/ttf" />
-		<link rel="preload" as="font" href="assets/Block Code.ttf" type="font/ttf" />
+		<title>Pass the Word</title>
+		<style media="screen" type="text/css">
+			@font-face {
+    			font-family: MadHacker;
+    			src: url('assets/MadHacker.ttf');
+			}
+			@font-face{
+				font-family: BlockCode;
+    			src: url('assets/BlockCode.ttf')
+			}
+			@font-face{
+				font-family: conthrax;
+    			src: url('assets/conthrax.ttf')
+			}
+			@font-face{
+				font-family: ModernMachine;
+    			src: url('assets/ModernMachine.ttf')
+			}
+		</style>
+
+		<div style="font-family:MadHacker; position:absolute; left:-1000px; visibility:hidden;">.</div>
+		<div style="font-family:BlockCode; position:absolute; left:-1000px; visibility:hidden;">.</div>
+		<div style="font-family:conthrax; position:absolute; left:-1000px; visibility:hidden;">.</div>
+		<div style="font-family:ModernMachine; position:absolute; left:-1000px; visibility:hidden;">.</div>
 		<script src="game.js"></script>
 	</head>
 	<body>
