@@ -82,7 +82,7 @@ export class CreatePassScene extends Phaser.Scene {
     // Converts the charactersheet data into buttons
     // Created by Braxton Madara
     formKeywords(){
-        var sampleSheet = new CharacterSheet("Tom", "Hardy", "425", ["Gloomtail", "sprinkles", "gum"], [])
+        var sampleSheet = new CharacterSheet("Bob", "Smith", "1225", ["cake", "dog", "cat"], [])
         players.activePlayer.setKeywords(sampleSheet.getWords());
         
         var words = players.activePlayer.getKeywords()
