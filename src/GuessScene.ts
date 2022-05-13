@@ -168,6 +168,6 @@ export class GuessScene extends Phaser.Scene {
             }
             colors.push([this.currentPassword[i],color])
         }
-        players.activePlayer.appendToHistory(colors)
+        players.appendToHistory(colors)
     }
 }
