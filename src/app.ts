@@ -7,6 +7,7 @@ import {CreatePassScene} from './CreatePassScene'
 import {EndScene} from './EndScene'
 import {TransitionScene} from './TransitionScene'
 import {ChargeScreen} from './ChargeScreen'
+import {Tutorial} from './Tutorial'
 
 export const size = {x: 800, y: 350}
 const config : GameConfig= {
@@ -22,7 +23,7 @@ const config : GameConfig= {
         game.domContainer.style.pointerEvents = 'none';
       },
     },
-    scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, TransitionScene, EndScene, ChargeScreen],
+    scene: [BootScene, GuessScene, MainMenuScene, CreatePassScene, TransitionScene, EndScene, ChargeScreen, Tutorial],
     physics: {
         default: "arcade",
         arcade: {debug:false}
