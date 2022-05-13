@@ -22,7 +22,7 @@ export class PowerUps extends Phaser.GameObjects.Container{
     }
     updateHeading() {
         this.remove(this.heading,true)
-        this.heading = this.scene.add.text(0,30,"You have $" + players.activePlayer.charges,)
+        this.heading = this.scene.add.text(0,30,"You have $" + players.activePlayer.charges,textHandler.mediumText)
         this.add(this.heading)
     }
     private showFirstKeyword: ()=>void = function(){
