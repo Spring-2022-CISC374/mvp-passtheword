@@ -98,7 +98,7 @@ export class GuessScene extends Phaser.Scene {
 
         this.input.on('gameobjectdown', this.handleInteract, this)
 
-        this.powerups = new PowerUps(this, 550,10, players.activePlayer.discount)
+        this.powerups = new PowerUps(this, 500,10, players.activePlayer.discount)
 
     }
 
