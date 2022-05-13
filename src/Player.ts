@@ -13,6 +13,7 @@ class Player {
     colorMap = {}
     turn = 0
     charges = 0
+    discount = 0
     buttons: [string,string,string] = ['upTexture', 'overTexture', 'downTexture']
 
     getKeywords() {

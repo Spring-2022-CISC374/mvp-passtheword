@@ -2,7 +2,7 @@ import players from './Player'
 
 export class PowerUps extends Phaser.GameObjects.Container{
     heading: Phaser.GameObjects.Text    
-    constructor(scene: Phaser.Scene, x: number, y: number){
+    constructor(scene: Phaser.Scene, x: number, y: number, discount: number){
         super(scene, x, y)
 
         this.scene = scene
@@ -13,10 +13,9 @@ export class PowerUps extends Phaser.GameObjects.Container{
         this.heading = this.scene.add.text(0,30,"You have $" + players.activePlayer.charges)
         this.add(this.heading)
         // Add Additional PowerUps Here
-        this.add(new PowerUp(this.scene,50,"Show First Keyword", 2, this.showFirstKeyword))
-        this.add(new PowerUp(this.scene,70,"Remove Wrong Answer", 1, this.removeWrongAnswer))
-        this.add(new PowerUp(this.scene,90,"Show Password Length", 1, this.showPasswordLength))
-        
+        this.add(new PowerUp(this.scene,50,"Show First Keyword", Math.max(1, 4 - discount), this.showFirstKeyword))
+        this.add(new PowerUp(this.scene,70,"Remove Wrong Answer", Math.max(1, 3 - discount), this.removeWrongAnswer))
+        this.add(new PowerUp(this.scene,90,"Show Password Length", Math.max(1, 3 - discount), this.showPasswordLength))
 
         this.scene.add.existing(this)
     }
