@@ -11,7 +11,15 @@ export class Tutorial extends Phaser.Scene {
 
     create() {
         this.cameras.main.setRoundPixels(true); 
-        this.gameText['Placeholder'] = this.add.text(size.x/2,70,"This is the tutorial.").setOrigin();
+        this.gameText['Greeting'] = this.add.text(size.x/2,70,"Welcome players. We have a challange for both of you.").setOrigin();
+        this.gameText['Greeting 2'] = this.add.text(size.x/2,70,"Welcome players. We have a challange for both of you.").setOrigin();
+        this.gameText['Creation instruction'];
+        this.gameText['Guessing instruction'];
+        this.gameText['Color explanation'];
+        this.gameText['Remember Password Explanation'];
+        this.gameText['Power Up explanation'];
+        this.gameText['Send Off'];
+        
 
         // Most likely we just want a couple of screenshots with some text/drawings on it to show how the game is played
         // Key points to touch on:
