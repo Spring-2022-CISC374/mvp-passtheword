@@ -54,6 +54,10 @@ export class Tutorial extends Phaser.Scene {
 
         this.input.on('pointerdown', function (pointer) {
             count++
+            //if(count == 0){
+                //this.gameText.setVisible(false);
+                //this.gameText = this.add.text(size.x/2, 70, "After creating your passwords you will be guessing here", style).setOrigin().setFontSize(15);
+            //}
             if(count == 1){
                 this.gameText.setVisible(false);
                 this.gameText = this.add.text(size.x/2, 70, "This is the shop. Here you can click a power up to buy it and get a leg up on your opponent.\nEvery time you guess part of the opponent's password they get money for the shop. $1 for each keyword you guess correctly.", style).setOrigin().setFontSize(15);
@@ -62,6 +66,7 @@ export class Tutorial extends Phaser.Scene {
             if(count == 2){
                 this.gameText.setVisible(false);
                 this.gameText = this.add.text(size.x/2, 70, "Every 3 turns you will be shown this screen. If you remember your password and type it correctly, everything in the shop becomes cheaper.", style).setOrigin().setFontSize(15);
+                //this.add.image(size.x/2, size.y/2, ).setOrigin();
             }
             if(count == 3){
                 this.gameText.setVisible(false);
