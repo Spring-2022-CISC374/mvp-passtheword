@@ -6,14 +6,24 @@ export class BootScene extends Phaser.Scene { //Most scenes were made by Kyle Ko
     }
 
     preload(){
-        this.load.image('upTexture', './assets/icons/buttonTextures/ButtonUp.png')
-        this.load.image('overTexture', './assets/icons/buttonTextures/ButtonOver.png')
-        this.load.image('downTexture', './assets/icons/buttonTextures/ButtonDown.png')
-        this.load.image('upTexture2', './assets/icons/buttonTextures/ButtonUp2.png')
-        this.load.image('overTexture2', './assets/icons/buttonTextures/ButtonOver2.png')
-        this.load.image('downTexture2', './assets/icons/buttonTextures/ButtonDown2.png')
+        // Images
+        this.load.image('upTexture', './assets/icons/buttonTextures/ButtonUp.png') // Blue Button Unpressed
+        this.load.image('overTexture', './assets/icons/buttonTextures/ButtonOver.png') // Blue Button Hovered Over
+        this.load.image('downTexture', './assets/icons/buttonTextures/ButtonDown.png') // Blue Button Pressed
+        this.load.image('upTexture2', './assets/icons/buttonTextures/ButtonUp2.png') // Purple Button Unpressed
+        this.load.image('overTexture2', './assets/icons/buttonTextures/ButtonOver2.png') // Purple Button Hovered Over
+        this.load.image('downTexture2', './assets/icons/buttonTextures/ButtonDown2.png') // Purple Button Pressed
+
+        this.load.image('colorTutorialBefore', './assets/icons/tutorialScreenshots/ColorTutorialBefore.png') // Keyword Color Tutorial
+        this.load.image('colorTutorialAfter', './assets/icons/tutorialScreenshots/ColorTutorialAfter.png') // Keyword Color Tutorial
+        this.load.image('rememberingTutorial', './assets/icons/tutorialScreenshots/RememberingTutorial.png') // Remembering Password Tutorial
+        this.load.image('shopTutorial', './assets/icons/tutorialScreenshots/ShopTutorial.png') // Shop Tutorial
+        
+
+        // Audio
         this.load.audio('btnPress', 'assets/buttonPress.mp3'); //Loads button press sound
         this.load.audio('music', 'assets/music.mp3'); // Loads background music
+
         this.load.html('form', 'assets/input.html'); // Loads in HTML user input
     }
     
