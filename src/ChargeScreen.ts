@@ -11,6 +11,7 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
     passwordInput: Phaser.GameObjects.DOMElement
     returnKey: Phaser.Input.Keyboard.Key
     submitButton: Button;
+    discountGain: number = 0;
 
     constructor(){
         super("chance");
@@ -50,9 +51,10 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
     handleSubmit(password) {
         if (password == players.getActivePassword()) {
             this.gameTitleText.setText("Success! Your Power Ups now cost less.");
-            players.activePlayer.discount += 1
+            this.discountGain = 1;
         } else {
             this.gameTitleText.setText("Incorrect! That was not your password.");
+            this.discountGain = 0;
         }
 
         this.submitButton.setText("Continue")
@@ -62,6 +64,7 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
         this.returnKey.removeAllListeners("down");
 
         this.input.on('gameobjectdown', function (pointer) {
+            players.activePlayer.discount += this.discountGain;
             this.scene.start('guess');
         }, this); // Left Click advances to next scene
 
