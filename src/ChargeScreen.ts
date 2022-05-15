@@ -11,7 +11,6 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
     passwordInput: Phaser.GameObjects.DOMElement
     returnKey: Phaser.Input.Keyboard.Key
     submitButton: Button;
-    discountGain: number = 0;
 
     constructor(){
         super("chance");
@@ -28,7 +27,7 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
-        this.returnKey.on("down", event => {
+        this.returnKey.once("down", event => {
             let password = (<HTMLInputElement>this.passwordInput.getChildByName("password"));
             if(password.value != "") {
                 this.handleSubmit(password.value);
@@ -36,7 +35,7 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
         });
 
         this.submitButton = this.add.existing(new Button(this, size.x * 3 / 4, size.y * 3 / 4, players.activePlayer.buttons, "Submit")).setInteractive()
-        this.input.on('gameobjectdown',
+        this.input.once('gameobjectdown',
             function () {
                 let password = (<HTMLInputElement>this.passwordInput.getChildByName("password"))
                 this.handleSubmit(password.value);
@@ -51,10 +50,9 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
     handleSubmit(password) {
         if (password == players.getActivePassword()) {
             this.gameTitleText.setText("Success! Your Power Ups now cost less.");
-            this.discountGain = 1;
+            players.activePlayer.discount += 1;
         } else {
             this.gameTitleText.setText("Incorrect! That was not your password.");
-            this.discountGain = 0;
         }
 
         this.submitButton.setText("Continue")
@@ -62,9 +60,8 @@ export class ChargeScreen extends Phaser.Scene { //File created by Jason
         this.instructionText.setText("Please click Continue to continue, Player" + players.getActiveID());
 
         this.returnKey.removeAllListeners("down");
-
+        this.input.removeAllListeners()
         this.input.on('gameobjectdown', function (pointer) {
-            players.activePlayer.discount += this.discountGain;
             this.scene.start('guess');
         }, this); // Left Click advances to next scene
 
