@@ -39,20 +39,26 @@ export class Button extends Phaser.GameObjects.Container{
 
         this.setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
-                this.upImage.setVisible(false)
-                this.overImage.setVisible(true)
+                if(this.upImage.visible && !this.overImage.visible && !this.downImage.visible){
+                    this.upImage.setVisible(false)
+                    this.overImage.setVisible(true)
+                }
             })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                this.overImage.setVisible(false)
-                this.downImage.setVisible(true)
-            })
-            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-                this.overImage.setVisible(true)
-                this.downImage.setVisible(false)
+                if(!this.upImage.visible && !this.overImage.visible && this.downImage.visible){
+                    this.overImage.setVisible(true)
+                    this.downImage.setVisible(false)
+                }
+                else if(!this.upImage.visible && this.overImage.visible && !this.downImage.visible){
+                    this.overImage.setVisible(false)
+                    this.downImage.setVisible(true)
+                }
             })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-                this.upImage.setVisible(true)
-                this.overImage.setVisible(false)
+                if(!this.upImage.visible && this.overImage.visible && !this.downImage.visible){
+                    this.upImage.setVisible(true)
+                    this.overImage.setVisible(false)
+                }
             })
     }
 
