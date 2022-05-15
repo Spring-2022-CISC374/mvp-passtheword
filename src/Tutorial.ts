@@ -40,7 +40,7 @@ export class Tutorial extends Phaser.Scene {
                 this.tutorialImage1.setVisible(false);
                 this.tutorialImage2.setVisible(false);
 
-                this.gameText = this.add.text(size.x/2, 70, "This is the shop. Here you can click a power up to buy it and get a leg up on your opponent. Every time you guess part of the opponent's password they get money for the shop. $1 for each keyword you guess correctly.", style).setOrigin().setFontSize(15);
+                this.gameText = this.add.text(size.x/2, 70, "This is the shop. Here you can click a power up to buy it and get a leg up on your opponent. For every unique keyword guessed your opponent gets money. $1 for each unique keyword.", style).setOrigin().setFontSize(15);
                 
                 this.tutorialImage1 = this.add.image(size.x/2, size.y * 2/3, 'shopTutorial').setOrigin();
                 this.tutorialImage1.setScale(.66);
