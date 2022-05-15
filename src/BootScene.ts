@@ -13,7 +13,12 @@ export class BootScene extends Phaser.Scene { //Most scenes were made by Kyle Ko
         this.load.image('upTexture2', './assets/icons/buttonTextures/ButtonUp2.png') // Purple Button Unpressed
         this.load.image('overTexture2', './assets/icons/buttonTextures/ButtonOver2.png') // Purple Button Hovered Over
         this.load.image('downTexture2', './assets/icons/buttonTextures/ButtonDown2.png') // Purple Button Pressed
-        this.load.image('shopTutorial', './assets/icons/tutorialScreenshots/ShopTutorial.png')
+
+        this.load.image('colorTutorialBefore', './assets/icons/tutorialScreenshots/ColorTutorialBefore.png') // Keyword Color Tutorial
+        this.load.image('colorTutorialAfter', './assets/icons/tutorialScreenshots/ColorTutorialAfter.png') // Keyword Color Tutorial
+        this.load.image('rememberingTutorial', './assets/icons/tutorialScreenshots/RememberingTutorial.png') // Remembering Password Tutorial
+        this.load.image('shopTutorial', './assets/icons/tutorialScreenshots/ShopTutorial.png') // Shop Tutorial
+        
 
         // Audio
         this.load.audio('btnPress', 'assets/buttonPress.mp3'); //Loads button press sound
