@@ -28,7 +28,7 @@ export class Tutorial extends Phaser.Scene {
             if(count == 1){ // Colors Tutorial
                 this.gameText.setVisible(false);
 
-                this.gameText = this.add.text(size.x/2, 70, "After guessing, you will see the keywords you used with a new color. Red means they were not in the passwrd. Yellow means they were in the password but no the right position. Green means they were in the password and in the right position.", style).setOrigin().setFontSize(15);
+                this.gameText = this.add.text(size.x/2, 70, "After guessing, you will see the keywords you used with a new color. Red means they were not in the password. Yellow means they were in the password but not the right position. Green means they were in the password and in the right position.", style).setOrigin().setFontSize(15);
 
                 this.tutorialImage1 = this.add.image(size.x * 1/5, size.y * 2/3, 'colorTutorialBefore').setOrigin();
                 this.tutorialImage2 = this.add.image(size.x * 4/5, size.y * 2/3, 'colorTutorialAfter').setOrigin();
