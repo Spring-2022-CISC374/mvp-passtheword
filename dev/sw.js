@@ -1,4 +1,4 @@
-importScripts("/mvp-passtheword/devprecache-manifest.d1dbb9d6f1e6254a5f6fafd0a5d7e335.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/mvp-passtheword/devprecache-manifest.e7c425bd28dc140e9eceb926c5fd83f2.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /**
  * You should only modify this, if you know what you are doing.
